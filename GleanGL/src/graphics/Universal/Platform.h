@@ -3,16 +3,15 @@
 // #define GLEAN_USE_VULKAN // If enabled we should use vulkan
 
 #ifdef __APPLE__
-
+typedef void* __internalWindow;
+typedef void* __internalLibrary;
+typedef void* __internalContext;
 #elif defined(_WIN32)
-
 #include <Windows.h>
 typedef HWND __internalWindow;
 typedef HMODULE __internalLibrary;
 typedef HDC __internalContext;
-
 #include "../Windows/Win_Events.h"
-
 #else
 
 #endif
@@ -30,6 +29,7 @@ namespace Glean {
 
 		extern __internalContext initGL(__internalWindow window);
 		extern __internalContext createGLContext(__internalWindow window);
-
+        extern void swapBuffers(__internalContext context);
+        
 	}
 }

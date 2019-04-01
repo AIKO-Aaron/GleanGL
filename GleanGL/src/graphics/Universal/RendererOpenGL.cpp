@@ -14,10 +14,8 @@ void Renderer::clearColor(float r, float g, float b, float a) {
 }
 
 void Renderer::swapBuffers() {
-#ifdef _WIN32
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (!SwapBuffers(context)) printf("Swap buffers failed...\n");
-#endif
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);    
+    Glean::graphics::swapBuffers(context);
 }
 
 #endif

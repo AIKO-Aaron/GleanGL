@@ -15,16 +15,14 @@ namespace Glean {
 			__internalWindow window;
 
 			void init();
-			void loop();
 			bool fetchEvents();
 
 			Renderer* renderer;
-
-		public:
+            void loop();
+		public:            
 			Window(const char *title, int width, int height);
 			Window(const char *title, int width, int height, int x, int y);
 			void start();
-
 		};
 
 	}

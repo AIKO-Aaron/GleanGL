@@ -14,7 +14,7 @@ PFNGLCLEARPROC glClear;
 
 #define INIT_FUNC(funcname, decl) funcname = (decl) Glean::library::getGLFunction(#funcname)
 
-static __internalContext Glean::graphics::initGL(__internalWindow window) {
+__internalContext Glean::graphics::initGL(__internalWindow window) {
 	__internalContext c = Glean::graphics::createGLContext(window);
 
 	glGetString = (PFNGLGETSTRINGPROC)Glean::library::getGLFunction("glGetString");

@@ -61,4 +61,8 @@ __internalContext Glean::graphics::createGLContext(HWND window) {
 	return handle;
 }
 
+void Glean::graphics::swapBuffers(HDC context) {
+    if (!SwapBuffers(context)) printf("Swap buffers failed...\n");
+}
+
 #endif
