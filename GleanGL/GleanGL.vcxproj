@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="src\events\Event.h" />
     <ClInclude Include="src\events\Mac_Events.mm" />
+    <ClInclude Include="src\graphics\Shader.h" />
     <ClInclude Include="src\graphics\Universal\OpenGL\glcorearb.h" />
     <ClInclude Include="src\graphics\Universal\OpenGL\GleanGL.h" />
     <ClInclude Include="src\graphics\Universal\OpenGL\glext.h" />
@@ -128,6 +129,8 @@
   <ItemGroup>
     <ClCompile Include="src\events\Event.cpp" />
     <ClCompile Include="src\events\Win_Events.cpp" />
+    <ClCompile Include="src\graphics\Shader.cpp" />
+    <ClCompile Include="src\graphics\Universal\OpenGL\GleanGL.cpp" />
     <ClCompile Include="src\graphics\Universal\RendererOpenGL.cpp" />
     <ClCompile Include="src\graphics\Universal\RendererVulkan.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />

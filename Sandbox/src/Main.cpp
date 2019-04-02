@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "graphics/Window.h"
+#include "graphics/Shader.h"
 
 using namespace Glean::graphics;
 
@@ -25,6 +26,9 @@ int main(int argc, char **args) {
 	Window *window = new Window("Hello World", 960, 540);
     window->addEventHandler(handleEvent);
     window->addRenderFunction(render);
+
+	Glean::graphics::Shader *shader = new Glean::graphics::Shader("#version 330 core\nvoid main() {\n\n}\n", "#version 330 core\nvoid main() {\n\n}\n");
+
 	window->start();
 
 	std::cin.get();
