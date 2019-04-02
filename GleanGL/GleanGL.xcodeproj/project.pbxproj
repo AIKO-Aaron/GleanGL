@@ -23,6 +23,7 @@
 		93A0B65C2252A2E8004B05EF /* Win_Library.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B64E2252A2E8004B05EF /* Win_Library.cpp */; };
 		93A0B67C2252A3B1004B05EF /* Mac_Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B67B2252A3B1004B05EF /* Mac_Window.mm */; };
 		93A0B67E2252AEB8004B05EF /* Mac_Library.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B67D2252AEB8004B05EF /* Mac_Library.mm */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
+		93A0B684225366F2004B05EF /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B683225366F2004B05EF /* Event.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		93A0B67B2252A3B1004B05EF /* Mac_Window.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Mac_Window.mm; sourceTree = "<group>"; };
 		93A0B67D2252AEB8004B05EF /* Mac_Library.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Mac_Library.mm; sourceTree = "<group>"; };
 		93A0B67F22533058004B05EF /* Mac_Events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mac_Events.h; sourceTree = "<group>"; };
+		93A0B683225366F2004B05EF /* Event.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				93A0B6482252A2E8004B05EF /* Event.h */,
+				93A0B683225366F2004B05EF /* Event.cpp */,
 				93A0B64D2252A2E8004B05EF /* Win_Events.h */,
 				93A0B67F22533058004B05EF /* Mac_Events.h */,
 			);
@@ -232,6 +235,7 @@
 				93A0B65C2252A2E8004B05EF /* Win_Library.cpp in Sources */,
 				93A0B64F2252A2E8004B05EF /* RendererVulkan.cpp in Sources */,
 				93A0B6562252A2E8004B05EF /* Window.cpp in Sources */,
+				93A0B684225366F2004B05EF /* Event.cpp in Sources */,
 				93A0B6502252A2E8004B05EF /* RendererOpenGL.cpp in Sources */,
 				93A0B67E2252AEB8004B05EF /* Mac_Library.mm in Sources */,
 				93A0B67C2252A3B1004B05EF /* Mac_Window.mm in Sources */,

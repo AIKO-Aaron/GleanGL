@@ -68,7 +68,19 @@ namespace Glean {
             kDOWN,
             kLEFT,
             kRIGHT,
+            
+            kSPACE,
+            kENTER,
         };
+        
+        
+#ifdef __APPLE__
+#  define vCtrlSys vCommand
+#else
+#  define vCtrlSys vCtrl
+#endif
+        
+        // Definitions of Events that the user can receive
         
         struct KeyEvent;
         
@@ -80,8 +92,23 @@ namespace Glean {
         
         typedef struct KeyEvent : Event {
             Key key;
-            // flags? modifiers, ...
+            
+            bool isShiftDown = false;
+            bool isControlDown = false;
+            bool isAltDown = false;
+            bool isCapsLockOn = false;
+            bool isHelpDown = false;
+            bool isFunctionDown = false;
+            bool isCommandDown = false;
+            
+#ifdef __APPLE__
+            inline bool isPlatformCtrlDown() { return isCommandDown; }
+#else
+            inline bool isPlatformCtrlDown() { return isControlDown; }
+#endif
         } KeyEvent;
+        
+        extern char getCharFromKey(Key keycode);
         
 	}
 }

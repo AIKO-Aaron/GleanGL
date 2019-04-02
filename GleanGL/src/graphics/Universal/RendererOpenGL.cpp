@@ -7,6 +7,11 @@ using namespace Glean::graphics;
 
 Renderer::Renderer(__internalWindow window) : window(window) {
 	context = Glean::graphics::initGL(window);
+    
+    GLuint vboID;
+    glCreateBuffers(1, &vboID);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, vboID);
 }
 
 void Renderer::clearColor(float r, float g, float b, float a) {

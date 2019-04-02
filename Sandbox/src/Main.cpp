@@ -7,7 +7,8 @@ using namespace Glean::graphics;
 void handleEvent(Glean::events::Event *e) {
     if(e->type == Glean::events::KEYDOWN) {
         Glean::events::KeyEvent *kEvent = e->asKeyEvent();
-        printf("Pressed Key: %d\n", kEvent->key);
+        if(kEvent->isPlatformCtrlDown() && kEvent->key == Glean::events::kQ) exit(0);
+        printf("Pressed Key: %c\n", Glean::events::getCharFromKey(kEvent->key));
     }
 }
 

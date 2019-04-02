@@ -44,7 +44,7 @@ static const Glean::events::Key *SCANCODE_TO_KEY = new Glean::events::Key[IMPLEM
     Glean::events::Key::kUnknown, // 33: left bracket
     Glean::events::Key::kI, // 34: i
     Glean::events::Key::kP, // 35: p
-    Glean::events::Key::kUnknown, // 36: Return
+    Glean::events::Key::kENTER, // 36: Return
     Glean::events::Key::kL, // 37: l
     Glean::events::Key::kJ, // 38: j
     Glean::events::Key::kUnknown, // 39: Quote
@@ -58,7 +58,7 @@ static const Glean::events::Key *SCANCODE_TO_KEY = new Glean::events::Key[IMPLEM
     Glean::events::Key::kUnknown, // 47: .
 
     Glean::events::Key::kUnknown, // 48: Tab
-    Glean::events::Key::kUnknown, // 49: Space
+    Glean::events::Key::kSPACE, // 49: Space
 
     Glean::events::Key::kUnknown, // 50: Grave
 
@@ -204,12 +204,15 @@ static const int *MAC_KEY_TO_SCANCODE = new int[IMPLEMENTED_KEYS] {
     kVK_DownArrow,
     kVK_LeftArrow,
     kVK_RightArrow,
+    
+    kVK_Space,
+    kVK_Return,
 };
 
 static Glean::events::Event *translateEvent(NSEvent *event) {
     if(event.type == NSEventTypeMouseMoved) {
         //printf("Location in window: %f|%f\n", [evnt locationInWindow].x, [evnt locationInWindow].y);
-    } else if(event.type == NSEventTypeKeyDown) {
+    } else if(event.type == NSEventTypeKeyDown || event.type == NSEventTypeKeyUp) {
         unsigned short kc = [event keyCode];
         
         if(kc >= IMPLEMENTED_KEYS) {
@@ -218,9 +221,20 @@ static Glean::events::Event *translateEvent(NSEvent *event) {
         }
         
         Glean::events::KeyEvent *kEvent = new Glean::events::KeyEvent();
-        kEvent->type = Glean::events::KEYDOWN;
+        kEvent->type = event.type == NSEventTypeKeyDown ? Glean::events::KEYDOWN : Glean::events::KEYUP;
         kEvent->key = SCANCODE_TO_KEY[kc];
+        NSEventModifierFlags flags = [event modifierFlags];
+        
+        kEvent->isShiftDown = flags & NSEventModifierFlagShift;
+        kEvent->isControlDown = flags & NSEventModifierFlagControl;
+        kEvent->isCommandDown = flags & NSEventModifierFlagCommand;
+        kEvent->isAltDown = flags & NSEventModifierFlagOption;
+        kEvent->isCapsLockOn = flags & NSEventModifierFlagCapsLock;
+        kEvent->isHelpDown = flags & NSEventModifierFlagHelp;
+        kEvent->isFunctionDown = flags & NSEventModifierFlagFunction;
+
         return kEvent;
+    } else {
     }
     
     return nullptr;
