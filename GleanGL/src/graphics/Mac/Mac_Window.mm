@@ -11,8 +11,6 @@
 #import <Cocoa/Cocoa.h>
 #include "../Window.h"
 
-#include "../../events/Mac_Events.h" // Stuff for the event handling
-
 typedef void (Glean::graphics::Window::*loopFunc)(); // Just because apple needs the appdelegate
 
 @interface AppDelegate : NSObject<NSApplicationDelegate>
@@ -74,7 +72,7 @@ bool Glean::graphics::Window::fetchEvents() {
     do {
         evnt = [window nextEventMatchingMask:NSEventMaskAny untilDate:[NSDate distantPast] inMode:NSDefaultRunLoopMode dequeue:YES];
         if(evnt) {
-            Glean::events::Event *e = translateEvent(evnt);
+            Glean::events::Event *e = Glean::events::translateEvent((__bridge __internalEvent) evnt);
             if(e) dispatchEvent(e);
             [NSApp sendEvent: evnt]; // Do with event whatever is necessary
         }

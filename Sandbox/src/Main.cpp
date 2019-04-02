@@ -8,8 +8,12 @@ void handleEvent(Glean::events::Event *e) {
     if(e->type == Glean::events::KEYDOWN) {
         Glean::events::KeyEvent *kEvent = e->asKeyEvent();
         if(kEvent->isPlatformCtrlDown() && kEvent->key == Glean::events::kQ) exit(0);
-        printf("Pressed Key: %c\n", Glean::events::getCharFromKey(kEvent->key));
-    }
+        printf("[SANDBOX][DEBUG] Pressed Key: %c\n", Glean::events::getCharFromKey(kEvent->key));
+	}
+	else if (e->type == Glean::events::MOUSEMOTION) {
+		Glean::events::MouseMotionEvent *mEvent = e->asMouseMotionEvent();
+		printf("[SANDBOX][DEBUG] Mouse position on screen: %d|%d\n", mEvent->xPos, mEvent->yPos);
+	}
 }
 
 void render(Glean::graphics::Renderer *renderer) {

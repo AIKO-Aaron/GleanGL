@@ -11,7 +11,6 @@ typedef void* __internalContext;
 typedef HWND __internalWindow;
 typedef HMODULE __internalLibrary;
 typedef HDC __internalContext;
-#include "../Windows/Win_Events.h"
 #else
 
 #endif

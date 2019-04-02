@@ -21,13 +21,7 @@
     <ClInclude Include="src\graphics\Renderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\Events.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\Universal\Platform.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\Windows\Win_Events.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\Universal\OpenGL\glext.h">
@@ -42,11 +36,14 @@
     <ClInclude Include="src\graphics\Universal\OpenGL\GleanGL.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\events\Event.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\events\Mac_Events.mm">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\graphics\Windows\Win_Windows.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\Window.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -59,5 +56,18 @@
     <ClCompile Include="src\graphics\Windows\Win_Library.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Windows\Win_Window.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\events\Event.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\events\Win_Events.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\graphics\Mac\Mac_Library.mm" />
+    <None Include="src\graphics\Mac\Mac_Window.mm" />
   </ItemGroup>
 </Project>

@@ -1,8 +1,17 @@
 #pragma once
 
+#ifdef __APPLE__
+typedef void* __internalEvent;
+#elif defined(_WIN32)
+#  include <Windows.h>
+typedef MSG __internalEvent;
+#else
+
+#endif
+
 namespace Glean {
 	namespace events {
-
+		
 		enum EventType {
 			UNKNOWN = 0,
 			KEYDOWN,
@@ -14,63 +23,13 @@ namespace Glean {
         
         enum Key {
             kUnknown,
-            
-            kA,
-            kB,
-            kC,
-            kD,
-            kE,
-            kF,
-            kG,
-            kH,
-            kI,
-            kJ,
-            kK,
-            kL,
-            kM,
-            kN,
-            kO,
-            kP,
-            kQ,
-            kR,
-            kS,
-            kT,
-            kU,
-            kV,
-            kW,
-            kX,
-            kY,
-            kZ,
-            
-            k0,
-            k1,
-            k2,
-            k3,
-            k4,
-            k5,
-            k6,
-            k7,
-            k8,
-            k9,
-            
-            kNP0,
-            kNP1,
-            kNP2,
-            kNP3,
-            kNP4,
-            kNP5,
-            kNP6,
-            kNP7,
-            kNP8,
-            kNP9,
-            
-            kUP,
-            kDOWN,
-            kLEFT,
-            kRIGHT,
-            
-            kSPACE,
-            kENTER,
+            kA, kB, kC, kD, kE, kF, kG, kH, kI, kJ, kK, kL, kM, kN, kO, kP, kQ, kR, kS, kT, kU, kV, kW, kX, kY, kZ,
+            k0, k1, k2, k3, k4, k5, k6, k7, k8, k9,
+            kNP0, kNP1,  kNP2, kNP3, kNP4, kNP5, kNP6, kNP7, kNP8, kNP9,
+			kCOMMA, kPERIOD, kMINUS, kPLUS,
+            kUP, kDOWN, kLEFT, kRIGHT,
+            kSPACE, kTAB, kENTER, kESCAPE,
+			kF1, kF2, kF3, kF4, kF5, kF6, kF7, kF8, kF9, kF10, kF11, kF12, kF13, kF14, kF15
         };
         
         
@@ -82,12 +41,13 @@ namespace Glean {
         
         // Definitions of Events that the user can receive
         
-        struct KeyEvent;
+		struct KeyEvent; struct MouseMotionEvent;
         
 		typedef struct {
 			EventType type;
             
             inline KeyEvent* asKeyEvent() { return type == KEYUP || type == KEYDOWN ? (KeyEvent*) this : nullptr; }
+			inline MouseMotionEvent* asMouseMotionEvent() { return type == MOUSEMOTION ? (MouseMotionEvent*)this : nullptr; }
 		} Event;
         
         typedef struct KeyEvent : Event {
@@ -107,8 +67,24 @@ namespace Glean {
             inline bool isPlatformCtrlDown() { return isControlDown; }
 #endif
         } KeyEvent;
-        
-        extern char getCharFromKey(Key keycode);
-        
+     
+		struct MouseMotionEvent : Event {
+			unsigned int xPos, yPos, dx, dy;
+
+			bool isLeftMousePressed = false;
+			bool isMiddleMousePressed = false;
+			bool isRightMousePressed = false;
+		};
+
+		//
+		// Actual platform specific definitions
+		//
+
+		static unsigned int mouseX, mouseY;
+
+		extern char getCharFromKey(Key keycode);
+		extern Event *translateEvent(__internalEvent evt);
+		extern const Key *SCANCODE_TO_KEY;
+		extern const int *KEY_TO_SCANCODE;
 	}
 }

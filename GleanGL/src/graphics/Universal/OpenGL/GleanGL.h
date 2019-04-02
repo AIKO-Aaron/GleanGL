@@ -17,7 +17,11 @@ PFNGLCLEARPROC glClear;
 PFNGLCREATEBUFFERSPROC glCreateBuffers;
 PFNGLBINDBUFFERPROC glBindBuffer;
 
-#define INIT_FUNC(funcname) funcname = (typeof(funcname)) Glean::library::getGLFunction(#funcname)
+#ifdef __APPLE__
+#  define INIT_FUNC(funcname) funcname = (typeof(funcname)) Glean::library::getGLFunction(#funcname)
+#else
+#  define INIT_FUNC(funcname) funcname = (decltype(funcname)) Glean::library::getGLFunction(#funcname)
+#endif
 
 __internalContext Glean::graphics::initGL(__internalWindow window) {
 	__internalContext c = Glean::graphics::createGLContext(window);

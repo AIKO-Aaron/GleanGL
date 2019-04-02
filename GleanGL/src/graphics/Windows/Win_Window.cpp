@@ -1,9 +1,6 @@
 #ifdef _WIN32
 
 #include "../Window.h"
-
-#include <Windows.h>
-
 #include <Windows.h>
 #include <stdio.h>
 
@@ -92,18 +89,14 @@ bool Window::fetchEvents() {
 		DispatchMessage(&msg);
 
 		switch (msg.message) {
-		case WM_KEYDOWN:
-			//msg.wParam --> Virtual key code
-			//msg.lParam --> Weird flags
-			break;
 		case WM_QUIT:
 			return false; // Window was closed... So no more events
 		default:
-			//printf("[GLEAN][WARN] Unhandled Event for Windows window: %.08X\n", msg.message);
+			Glean::events::Event *e = Glean::events::translateEvent(msg);
+			if (e) dispatchEvent(e);
 			break;
 		}
 	}
-
 	return true;
 }
 

@@ -115,7 +115,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\graphics\Events.h" />
+    <ClInclude Include="src\events\Event.h" />
+    <ClInclude Include="src\events\Mac_Events.mm" />
     <ClInclude Include="src\graphics\Universal\OpenGL\glcorearb.h" />
     <ClInclude Include="src\graphics\Universal\OpenGL\GleanGL.h" />
     <ClInclude Include="src\graphics\Universal\OpenGL\glext.h" />
@@ -123,14 +124,19 @@
     <ClInclude Include="src\graphics\Universal\Platform.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
     <ClInclude Include="src\graphics\Window.h" />
-    <ClInclude Include="src\graphics\Windows\Win_Events.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\events\Event.cpp" />
+    <ClCompile Include="src\events\Win_Events.cpp" />
     <ClCompile Include="src\graphics\Universal\RendererOpenGL.cpp" />
     <ClCompile Include="src\graphics\Universal\RendererVulkan.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\graphics\Windows\Win_Library.cpp" />
-    <ClCompile Include="src\graphics\Windows\Win_Windows.cpp" />
+    <ClCompile Include="src\graphics\Windows\Win_Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\graphics\Mac\Mac_Library.mm" />
+    <None Include="src\graphics\Mac\Mac_Window.mm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
