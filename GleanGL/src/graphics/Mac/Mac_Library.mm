@@ -25,14 +25,16 @@ void* Glean::library::getGLFunction(const char *name) {
 __internalContext Glean::graphics::createGLContext(__internalWindow iWind) {
     NSWindow *window = (__bridge NSWindow*) iWind;
     
-    CGLPixelFormatObj pixelFormatObject;
-    int numScreens;
-    
     NSOpenGLPixelFormatAttribute attributes[] = {
         NSOpenGLPFADoubleBuffer,
+        NSOpenGLPFAAccelerated,
         NSOpenGLPFADepthSize, 32,
+        NSOpenGLPFASampleBuffers, 2,
+        NSOpenGLPFASamples, 4,
+        NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion4_1Core,
         0
     };
+    
     NSOpenGLPixelFormat *pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes: attributes];
     NSOpenGLContext *context = [[NSOpenGLContext alloc] initWithFormat: pixelFormat shareContext: NULL];
     if(!context) printf("[GLEAN][ERROR] Couldn't create OpenGL context on MacOS\n");

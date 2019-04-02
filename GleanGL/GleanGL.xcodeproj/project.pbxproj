@@ -22,7 +22,7 @@
 		93A0B65B2252A2E8004B05EF /* Win_Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 93A0B64D2252A2E8004B05EF /* Win_Events.h */; };
 		93A0B65C2252A2E8004B05EF /* Win_Library.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B64E2252A2E8004B05EF /* Win_Library.cpp */; };
 		93A0B67C2252A3B1004B05EF /* Mac_Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B67B2252A3B1004B05EF /* Mac_Window.mm */; };
-		93A0B67E2252AEB8004B05EF /* Mac_Library.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B67D2252AEB8004B05EF /* Mac_Library.mm */; };
+		93A0B67E2252AEB8004B05EF /* Mac_Library.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B67D2252AEB8004B05EF /* Mac_Library.mm */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */

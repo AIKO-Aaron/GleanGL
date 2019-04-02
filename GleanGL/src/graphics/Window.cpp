@@ -14,7 +14,7 @@ void Window::loop() {
 		// TODO: render, update, ...
 		//printf("Render/Update loop\n");
 
-		renderer->clearColor(1, 0, 1, 1);
+		renderer->clearColor(0, 0, 0, 1);
 		renderer->swapBuffers();
 
 		auto end = clock.now();
