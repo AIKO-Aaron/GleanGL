@@ -55,7 +55,7 @@ __internalContext Glean::graphics::createGLContext(HWND window) {
 	HGLRC glRenderContext = wglCreateContext(handle);
 	wglMakeCurrent(handle, glRenderContext);
 	if (!glRenderContext) {
-		printf("[GLEAN][ERROR] Couldn't create Window OpenGL Context\n");
+		printf("[GLEAN][ERROR] Couldn't create Windows OpenGL Context\n");
 	}
 
 	return handle;

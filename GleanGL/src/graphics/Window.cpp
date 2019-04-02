@@ -14,8 +14,7 @@ void Window::loop() {
 		// TODO: render, update, ...
 		//printf("Render/Update loop\n");
 
-		renderer->clearColor(0, 0, 0, 1);
-		renderer->swapBuffers();
+        for(renderFunc f : renderFunctions) f(renderer);
 
 		auto end = clock.now();
 		std::this_thread::sleep_for(std::chrono::nanoseconds(10000000 / 60) - (end - start));
