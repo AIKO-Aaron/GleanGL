@@ -1,0 +1,18 @@
+#pragma once
+extern PFNGLGETSTRINGPROC glGetString;
+extern PFNGLGETINTEGERVPROC glGetIntegerv;
+extern PFNGLGETERRORPROC glGetError;
+extern PFNGLCLEARCOLORPROC glClearColor;
+extern PFNGLCLEARPROC glClear;
+extern PFNGLGENBUFFERSPROC glGenBuffers;
+extern PFNGLBINDBUFFERPROC glBindBuffer;
+extern PFNGLCREATEPROGRAMPROC glCreateProgram;
+extern PFNGLCREATESHADERPROC glCreateShader;
+extern PFNGLSHADERSOURCEPROC glShaderSource;
+extern PFNGLCOMPILESHADERPROC glCompileShader;
+extern PFNGLGETSHADERIVPROC glGetShaderiv;
+extern PFNGLGETSHADERINFOLOGPROC glGetShaderInfoLog;
+extern PFNGLATTACHSHADERPROC glAttachShader;
+extern PFNGLLINKPROGRAMPROC glLinkProgram;
+extern PFNGLUSEPROGRAMPROC glUseProgram;
+extern PFNGLDELETESHADERPROC glDeleteShader;

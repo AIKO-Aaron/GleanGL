@@ -9,7 +9,7 @@ Renderer::Renderer(__internalWindow window) : window(window) {
 	context = Glean::graphics::initGL(window);
     
     GLuint vboID;
-    glCreateBuffers(1, &vboID);
+    glGenBuffers(1, &vboID);
     
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
 }

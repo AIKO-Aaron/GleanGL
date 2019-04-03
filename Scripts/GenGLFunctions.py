@@ -3,7 +3,7 @@ glGetIntegerv
 glGetError
 glClearColor
 glClear
-glCreateBuffers
+glGenBuffers
 glBindBuffer
 glCreateProgram
 glCreateShader
@@ -16,7 +16,7 @@ glLinkProgram
 glUseProgram
 glDeleteShader""".split("\n")
 
-HEADER = ""
+HEADER = "#pragma once\n"
 for f in functionsToInit:
     HEADER += "extern PFN{}PROC {};\n".format(f.upper(), f)
 
@@ -24,10 +24,18 @@ CPP = ""
 for f in functionsToInit:
     CPP += "PFN{}PROC {} = nullptr;\n".format(f.upper(), f)
 
+CPP += "\nstatic void initGLean() {\n"
+for f in functionsToInit:
+    CPP += "\tINIT_FUNC({});\n".format(f)
+CPP += "}"
+
 print("HEADER:")
 print(HEADER)
 print("")
 print("CPP:")
 print(CPP)
 
-## # TODO: Save the files automatically
+h = open("autogen_header.h", 'w')
+h.writelines(HEADER)
+cpp = open("autogen_cpp.h", 'w')
+cpp.writelines(CPP)

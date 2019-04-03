@@ -2,6 +2,7 @@
 
 #include "Event.h"
 #import <Carbon/Carbon.h>
+#import <Cocoa/Cocoa.h>
 
 using namespace Glean::events;
 
@@ -210,8 +211,8 @@ const int *Glean::events::KEY_TO_SCANCODE = new int[IMPLEMENTED_KEYS] {
 Event *Glean::events::translateEvent(__internalEvent evt) {
 	NSEvent *event = (__bridge NSEvent*) evt;
     if(event.type == NSEventTypeMouseMoved) {
-		unsigned int x = [evnt locationInWindow].x;
-		unsigned int y = [evnt locationInWindow].y;
+		unsigned int x = [event locationInWindow].x;
+		unsigned int y = [event locationInWindow].y;
 
 		MouseMotionEvent *mEvent = new MouseMotionEvent();
 		mEvent->type = MOUSEMOTION;
