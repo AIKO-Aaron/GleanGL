@@ -22,8 +22,4 @@ void Renderer::swapBuffers() {
     Glean::graphics::swapBuffers(context);
 }
 
-void Renderer::startFrame() {
-    glBindVertexArray(vaoID);
-}
-
 #endif

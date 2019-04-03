@@ -21,7 +21,7 @@ void handleEvent(Glean::events::Event *e) {
 }
 
 void render(Glean::graphics::Renderer *renderer) {
-    renderer->clearColor(0, 0, 0, 1);
+    renderer->clearColor(1, 0, 0, 1);
 
     shader->bind();
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
@@ -33,7 +33,10 @@ void render(Glean::graphics::Renderer *renderer) {
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
     
     GLuint err;
-    if((err = glGetError()) != GL_NO_ERROR) printf("Error happened...: %d\n", err);
+    if((err = glGetError()) != GL_NO_ERROR) {
+        printf("Error happened: %d\n", err);
+        exit(0);
+    }
     
     renderer->swapBuffers();
 }
