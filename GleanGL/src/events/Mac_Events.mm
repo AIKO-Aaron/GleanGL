@@ -248,6 +248,7 @@ Event *Glean::events::translateEvent(__internalEvent evt) {
 
         return kEvent;
     } else {
+        // printf("%s\n", [event.description UTF8String]);
     }
     
     return nullptr;

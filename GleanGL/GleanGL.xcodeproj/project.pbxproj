@@ -30,6 +30,8 @@
 		93F3611222548978004C3282 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F3611022548978004C3282 /* Shader.cpp */; };
 		93F3611822548DB9004C3282 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F3611622548DB9004C3282 /* FileUtil.cpp */; };
 		93F3611922548DB9004C3282 /* FileUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F3611722548DB9004C3282 /* FileUtil.h */; };
+		93F36121225523FE004C3282 /* Vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F36120225523FE004C3282 /* Vector.h */; };
+		93F3612722552441004C3282 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F3612522552441004C3282 /* Matrix.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		93F3611022548978004C3282 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shader.cpp; path = src/graphics/Shader.cpp; sourceTree = SOURCE_ROOT; };
 		93F3611622548DB9004C3282 /* FileUtil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
 		93F3611722548DB9004C3282 /* FileUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileUtil.h; sourceTree = "<group>"; };
+		93F36120225523FE004C3282 /* Vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
+		93F3612522552441004C3282 /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 		93A0B63C2252A2E8004B05EF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				93F3611F225523E2004C3282 /* math */,
 				93A0B68122534ADC004B05EF /* events */,
 				93A0B68022534AD4004B05EF /* util */,
 				93A0B63D2252A2E8004B05EF /* graphics */,
@@ -172,6 +177,15 @@
 			path = events;
 			sourceTree = "<group>";
 		};
+		93F3611F225523E2004C3282 /* math */ = {
+			isa = PBXGroup;
+			children = (
+				93F36120225523FE004C3282 /* Vector.h */,
+				93F3612522552441004C3282 /* Matrix.h */,
+			);
+			path = math;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -180,10 +194,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				93F3611122548978004C3282 /* Shader.h in Headers */,
+				93F3612722552441004C3282 /* Matrix.h in Headers */,
 				93A0B6512252A2E8004B05EF /* Platform.h in Headers */,
 				93F3611922548DB9004C3282 /* FileUtil.h in Headers */,
 				93A0B6582252A2E8004B05EF /* Renderer.h in Headers */,
 				93A0B6552252A2E8004B05EF /* khrplatform.h in Headers */,
+				93F36121225523FE004C3282 /* Vector.h in Headers */,
 				93A0B6532252A2E8004B05EF /* GleanGL.h in Headers */,
 				93A0B6542252A2E8004B05EF /* glcorearb.h in Headers */,
 				93A0B6522252A2E8004B05EF /* glext.h in Headers */,

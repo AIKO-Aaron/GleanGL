@@ -41,7 +41,7 @@ typedef void (Glean::graphics::Window::*loopFunc)(); // Just because apple needs
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
-    return YES;
+    return NO;
 }
 
 @end
@@ -78,7 +78,8 @@ bool Glean::graphics::Window::fetchEvents() {
         }
     } while(evnt);
     
-    return YES;
+    if(![window isVisible]) [NSApp stop: nil]; // Stop the application from running, but not terminate it
+    return [window isVisible];
 }
 
 void Glean::graphics::Window::start() { [NSApp run]; }

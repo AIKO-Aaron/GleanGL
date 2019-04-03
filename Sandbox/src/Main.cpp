@@ -2,6 +2,7 @@
 
 #include "graphics/Window.h"
 #include "graphics/Shader.h"
+#include "math/Matrix.h"
 
 using namespace Glean::graphics;
 
@@ -61,7 +62,15 @@ int main(int argc, char **args) {
     
     shader = Glean::graphics::loadShaderRecursive("assets/shader.vert", "assets/shader.frag");
 
+    Glean::math::Matrix<2, 3> m1(new float[6]{ 1, 2, 3, 4, 5, 6 });
+    Glean::math::Matrix<3, 2> m2(new float[6]{ 7, 8, 9, 10, 11, 12});
+    
+    (m1 * m2).print();
+    
 	window->start();
 
+#ifdef _WIN32
 	std::cin.get();
+#endif
+    return 0;
 }
