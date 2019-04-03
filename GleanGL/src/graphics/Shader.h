@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Universal/OpenGL/GleanGL.h"
+#include "../util/FileUtil.h"
 #include <string>
 
 namespace Glean {
@@ -16,6 +17,6 @@ namespace Glean {
 			inline void bind() { glUseProgram(shaderID); }
 		};
 
-		extern Shader* loadShaderRecursive(const char *verPath, const char *fragPath, int depth = 9);
+		extern Shader* loadShaderRecursive(const char *vertPath, const char *fragPath, int depth = 9);
 	}
 }

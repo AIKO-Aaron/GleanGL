@@ -8,19 +8,22 @@ using namespace Glean::graphics;
 Renderer::Renderer(__internalWindow window) : window(window) {
 	context = Glean::graphics::initGL(window);
     
-    GLuint vboID;
-    glGenBuffers(1, &vboID);
+    glGenVertexArrays(1, &vaoID);
     
-    glBindBuffer(GL_ARRAY_BUFFER, vboID);
+    glBindVertexArray(vaoID);
 }
 
 void Renderer::clearColor(float r, float g, float b, float a) {
 	glClearColor(r, g, b, a);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::swapBuffers() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);    
     Glean::graphics::swapBuffers(context);
+}
+
+void Renderer::startFrame() {
+    glBindVertexArray(vaoID);
 }
 
 #endif

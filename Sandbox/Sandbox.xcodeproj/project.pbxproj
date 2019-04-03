@@ -11,17 +11,19 @@
 		93A0B6752252A35F004B05EF /* libGleanGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A0B6742252A35F004B05EF /* libGleanGL.a */; };
 		93A0B6772252A369004B05EF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A0B6762252A368004B05EF /* OpenGL.framework */; };
 		93A0B6792252A36F004B05EF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A0B6782252A36F004B05EF /* Cocoa.framework */; };
+		93F3611E22549159004C3282 /* assets in CopyFiles */ = {isa = PBXBuildFile; fileRef = 93F3611D22549159004C3282 /* assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		93A0B6642252A344004B05EF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				93F3611E22549159004C3282 /* assets in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -31,6 +33,7 @@
 		93A0B6742252A35F004B05EF /* libGleanGL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGleanGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A0B6762252A368004B05EF /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		93A0B6782252A36F004B05EF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		93F3611D22549159004C3282 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +53,7 @@
 		93A0B65D2252A344004B05EF = {
 			isa = PBXGroup;
 			children = (
+				93F3611D22549159004C3282 /* assets */,
 				93A0B6702252A35C004B05EF /* src */,
 				93A0B6672252A344004B05EF /* Products */,
 				93A0B6732252A35F004B05EF /* Frameworks */,

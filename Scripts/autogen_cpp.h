@@ -15,6 +15,13 @@ PFNGLATTACHSHADERPROC glAttachShader = nullptr;
 PFNGLLINKPROGRAMPROC glLinkProgram = nullptr;
 PFNGLUSEPROGRAMPROC glUseProgram = nullptr;
 PFNGLDELETESHADERPROC glDeleteShader = nullptr;
+PFNGLDRAWELEMENTSPROC glDrawElements = nullptr;
+PFNGLBUFFERDATAPROC glBufferData = nullptr;
+PFNGLENABLEVERTEXATTRIBARRAYPROC glEnableVertexAttribArray = nullptr;
+PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer = nullptr;
+PFNGLGENVERTEXARRAYSPROC glGenVertexArrays = nullptr;
+PFNGLBINDVERTEXARRAYPROC glBindVertexArray = nullptr;
+PFNGLDRAWARRAYSPROC glDrawArrays = nullptr;
 
 static void initGLean() {
 	INIT_FUNC(glGetString);
@@ -34,4 +41,11 @@ static void initGLean() {
 	INIT_FUNC(glLinkProgram);
 	INIT_FUNC(glUseProgram);
 	INIT_FUNC(glDeleteShader);
+	INIT_FUNC(glDrawElements);
+	INIT_FUNC(glBufferData);
+	INIT_FUNC(glEnableVertexAttribArray);
+	INIT_FUNC(glVertexAttribPointer);
+	INIT_FUNC(glGenVertexArrays);
+	INIT_FUNC(glBindVertexArray);
+	INIT_FUNC(glDrawArrays);
 }

@@ -3,7 +3,6 @@
 using namespace Glean::graphics;
 
 Shader::Shader(const char *vertSrc, const char *fragSrc) {
-	printf("Shader: %p\n", glGetError);
 	GLenum err = glGetError();
 	if (err != GL_NO_ERROR) {
 		printf("OpenGL error: %d\n", err);
@@ -41,4 +40,8 @@ Shader::Shader(const char *vertSrc, const char *fragSrc) {
 	glLinkProgram(shaderID);
 	glDeleteShader(vertID);
 	glDeleteShader(fragID);
+}
+
+Shader* Glean::graphics::loadShaderRecursive(const char *vertPath, const char *fragPath, int depth) {
+    return new Shader(Glean::util::readWithProcessing(vertPath, depth).data, Glean::util::readWithProcessing(fragPath, depth).data);
 }

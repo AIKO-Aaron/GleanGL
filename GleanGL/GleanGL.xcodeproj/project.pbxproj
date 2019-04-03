@@ -28,6 +28,8 @@
 		93F3610E2254892B004C3282 /* GleanGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F3610D2254892B004C3282 /* GleanGL.cpp */; };
 		93F3611122548978004C3282 /* Shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F3610F22548978004C3282 /* Shader.h */; };
 		93F3611222548978004C3282 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F3611022548978004C3282 /* Shader.cpp */; };
+		93F3611822548DB9004C3282 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F3611622548DB9004C3282 /* FileUtil.cpp */; };
+		93F3611922548DB9004C3282 /* FileUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F3611722548DB9004C3282 /* FileUtil.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		93F3610D2254892B004C3282 /* GleanGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GleanGL.cpp; sourceTree = "<group>"; };
 		93F3610F22548978004C3282 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = src/graphics/Shader.h; sourceTree = SOURCE_ROOT; };
 		93F3611022548978004C3282 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shader.cpp; path = src/graphics/Shader.cpp; sourceTree = SOURCE_ROOT; };
+		93F3611622548DB9004C3282 /* FileUtil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
+		93F3611722548DB9004C3282 /* FileUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileUtil.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,8 @@
 		93A0B68022534AD4004B05EF /* util */ = {
 			isa = PBXGroup;
 			children = (
+				93F3611622548DB9004C3282 /* FileUtil.cpp */,
+				93F3611722548DB9004C3282 /* FileUtil.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -175,6 +181,7 @@
 			files = (
 				93F3611122548978004C3282 /* Shader.h in Headers */,
 				93A0B6512252A2E8004B05EF /* Platform.h in Headers */,
+				93F3611922548DB9004C3282 /* FileUtil.h in Headers */,
 				93A0B6582252A2E8004B05EF /* Renderer.h in Headers */,
 				93A0B6552252A2E8004B05EF /* khrplatform.h in Headers */,
 				93A0B6532252A2E8004B05EF /* GleanGL.h in Headers */,
@@ -247,6 +254,7 @@
 				93A0B6562252A2E8004B05EF /* Window.cpp in Sources */,
 				93A0B684225366F2004B05EF /* Event.cpp in Sources */,
 				93A0B6502252A2E8004B05EF /* RendererOpenGL.cpp in Sources */,
+				93F3611822548DB9004C3282 /* FileUtil.cpp in Sources */,
 				93A0B67E2252AEB8004B05EF /* Mac_Library.mm in Sources */,
 				93F3610B225488FA004C3282 /* Win_Events.cpp in Sources */,
 				93F3610C225488FA004C3282 /* Mac_Events.mm in Sources */,

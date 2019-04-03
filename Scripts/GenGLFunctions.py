@@ -14,7 +14,14 @@ glGetShaderInfoLog
 glAttachShader
 glLinkProgram
 glUseProgram
-glDeleteShader""".split("\n")
+glDeleteShader
+glDrawElements
+glBufferData
+glEnableVertexAttribArray
+glVertexAttribPointer
+glGenVertexArrays
+glBindVertexArray
+glDrawArrays""".split("\n")
 
 HEADER = "#pragma once\n"
 for f in functionsToInit:
