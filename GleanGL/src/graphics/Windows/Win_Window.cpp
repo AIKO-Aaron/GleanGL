@@ -43,7 +43,7 @@ static void registerWindowClass(HINSTANCE currentProgramInstance) {
 	}
 }
 
-Window::Window(const char *title, int width, int height) {
+Glean::graphics::Window::Window(const char *title, int width, int height) {
 	HINSTANCE currentProgramInstance = GetModuleHandle(0); // Get the current program's instance
 
 	if (!GetClassInfoEx(currentProgramInstance, WINDOWCLASS_NAME, nullptr)) registerWindowClass(currentProgramInstance);
@@ -64,7 +64,7 @@ Window::Window(const char *title, int width, int height) {
 	init();
 }
 
-Window::Window(const char *title, int width, int height, int x, int y) {
+Glean::graphics::Window::Window(const char *title, int width, int height, int x, int y) {
 	HINSTANCE currentProgramInstance = GetModuleHandle(0); // Get the current program's instance
 
 	if (!GetClassInfoEx(currentProgramInstance, WINDOWCLASS_NAME, nullptr)) registerWindowClass(currentProgramInstance);
@@ -82,24 +82,23 @@ Window::Window(const char *title, int width, int height, int x, int y) {
 	init();
 }
 
-bool Window::fetchEvents() {
+bool Glean::graphics::Window::fetchEvents() {
 	MSG msg;
 	if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE | PM_NOYIELD)) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+        
+        if(msg.message == WM_QUIT) return false;
+        
+        if(msg.message == WM_KEYDOWN) keysPressed[Glean::events::SCANCODE_TO_KEY[evnt.keyCode] % IMPLEMENTED_KEYS] = true;
+        if(msg.message == WM_KEYUP) keysPressed[Glean::events::SCANCODE_TO_KEY[evnt.keyCode] % IMPLEMENTED_KEYS] = false;
 
-		switch (msg.message) {
-		case WM_QUIT:
-			return false; // Window was closed... So no more events
-		default:
-			Glean::events::Event *e = Glean::events::translateEvent(msg);
-			if (e) dispatchEvent(e);
-			break;
-		}
+        Glean::events::Event *e = Glean::events::translateEvent(msg);
+        if (e) dispatchEvent(e);
 	}
 	return true;
 }
 
-void Window::start() { loop(); }
+void Glean::graphics::Window::start() { loop(); }
 
 #endif

@@ -32,6 +32,9 @@
 		93F3611922548DB9004C3282 /* FileUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F3611722548DB9004C3282 /* FileUtil.h */; };
 		93F36121225523FE004C3282 /* Vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F36120225523FE004C3282 /* Vector.h */; };
 		93F3612722552441004C3282 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F3612522552441004C3282 /* Matrix.h */; };
+		93F3612A22560DBD004C3282 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F3612822560DBC004C3282 /* Camera.cpp */; };
+		93F3612B22560DBD004C3282 /* Camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F3612922560DBD004C3282 /* Camera.h */; };
+		93F3612D22562684004C3282 /* GleanMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F3612C22562684004C3282 /* GleanMath.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +64,9 @@
 		93F3611722548DB9004C3282 /* FileUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileUtil.h; sourceTree = "<group>"; };
 		93F36120225523FE004C3282 /* Vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
 		93F3612522552441004C3282 /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		93F3612822560DBC004C3282 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		93F3612922560DBD004C3282 /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		93F3612C22562684004C3282 /* GleanMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GleanMath.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,8 @@
 				93A0B64A2252A2E8004B05EF /* Window.h */,
 				93A0B6472252A2E8004B05EF /* Window.cpp */,
 				93A0B6492252A2E8004B05EF /* Renderer.h */,
+				93F3612822560DBC004C3282 /* Camera.cpp */,
+				93F3612922560DBD004C3282 /* Camera.h */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -182,6 +190,7 @@
 			children = (
 				93F36120225523FE004C3282 /* Vector.h */,
 				93F3612522552441004C3282 /* Matrix.h */,
+				93F3612C22562684004C3282 /* GleanMath.h */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -194,10 +203,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				93F3611122548978004C3282 /* Shader.h in Headers */,
+				93F3612B22560DBD004C3282 /* Camera.h in Headers */,
 				93F3612722552441004C3282 /* Matrix.h in Headers */,
 				93A0B6512252A2E8004B05EF /* Platform.h in Headers */,
 				93F3611922548DB9004C3282 /* FileUtil.h in Headers */,
 				93A0B6582252A2E8004B05EF /* Renderer.h in Headers */,
+				93F3612D22562684004C3282 /* GleanMath.h in Headers */,
 				93A0B6552252A2E8004B05EF /* khrplatform.h in Headers */,
 				93F36121225523FE004C3282 /* Vector.h in Headers */,
 				93A0B6532252A2E8004B05EF /* GleanGL.h in Headers */,
@@ -266,6 +277,7 @@
 			files = (
 				93A0B65A2252A2E8004B05EF /* Win_Window.cpp in Sources */,
 				93A0B65C2252A2E8004B05EF /* Win_Library.cpp in Sources */,
+				93F3612A22560DBD004C3282 /* Camera.cpp in Sources */,
 				93A0B64F2252A2E8004B05EF /* RendererVulkan.cpp in Sources */,
 				93A0B6562252A2E8004B05EF /* Window.cpp in Sources */,
 				93A0B684225366F2004B05EF /* Event.cpp in Sources */,
@@ -402,6 +414,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TPDPL7CQS;
 				EXECUTABLE_PREFIX = lib;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -415,6 +428,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TPDPL7CQS;
 				EXECUTABLE_PREFIX = lib;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

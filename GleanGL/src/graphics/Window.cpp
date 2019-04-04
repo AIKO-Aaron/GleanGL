@@ -4,6 +4,7 @@ using namespace Glean::graphics;
 
 void Window::init() {
 	renderer = new Renderer(window);
+    for(int i = 0; i < IMPLEMENTED_KEYS; i++) keysPressed[i] = false;
 }
 
 void Window::loop() {

@@ -1,10 +1,16 @@
 #pragma once
 
 #ifdef __APPLE__
+
+#define IMPLEMENTED_KEYS 0x80
 typedef void* __internalEvent;
+
 #elif defined(_WIN32)
+
 #  include <Windows.h>
+#  define IMPLEMENTED_KEYS 0xFF
 typedef MSG __internalEvent;
+
 #else
 
 #endif
@@ -22,7 +28,7 @@ namespace Glean {
 		};
         
         enum Key {
-            kUnknown,
+            kUnknown = 0,
             kA, kB, kC, kD, kE, kF, kG, kH, kI, kJ, kK, kL, kM, kN, kO, kP, kQ, kR, kS, kT, kU, kV, kW, kX, kY, kZ,
             k0, k1, k2, k3, k4, k5, k6, k7, k8, k9,
             kNP0, kNP1,  kNP2, kNP3, kNP4, kNP5, kNP6, kNP7, kNP8, kNP9,
@@ -69,7 +75,8 @@ namespace Glean {
         } KeyEvent;
      
 		struct MouseMotionEvent : Event {
-			unsigned int xPos, yPos, dx, dy;
+            signed int xPos, yPos;
+            signed int dx, dy;
 
 			bool isLeftMousePressed = false;
 			bool isMiddleMousePressed = false;
@@ -80,7 +87,7 @@ namespace Glean {
 		// Actual platform specific definitions
 		//
 
-		static unsigned int mouseX, mouseY;
+		extern unsigned int mouseX, mouseY;
 
 		extern char getCharFromKey(Key keycode);
 		extern Event *translateEvent(__internalEvent evt);

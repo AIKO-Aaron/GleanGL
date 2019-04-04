@@ -6,8 +6,6 @@
 
 using namespace Glean::events;
 
-#define IMPLEMENTED_KEYS 128
-
 const Key *Glean::events::SCANCODE_TO_KEY = new Key[IMPLEMENTED_KEYS] {
     Key::kA, //  0: a
     Key::kS, //  1: s
@@ -216,13 +214,10 @@ Event *Glean::events::translateEvent(__internalEvent evt) {
 
 		MouseMotionEvent *mEvent = new MouseMotionEvent();
 		mEvent->type = MOUSEMOTION;
-		mEvent->dx = mouseX - x;
-		mEvent->dy = mouseY - y;
-		mEvent->xPos = x;
-		mEvent->yPos = y;
-
-		mouseX = x;
-		mouseX = y;
+		mEvent->dx = [event deltaX];
+		mEvent->dy = [event deltaY];
+        mouseX = x;
+		mouseY = y;
 
 		return mEvent;
     } else if(event.type == NSEventTypeKeyDown || event.type == NSEventTypeKeyUp) {

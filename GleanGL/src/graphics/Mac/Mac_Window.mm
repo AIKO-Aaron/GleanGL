@@ -46,6 +46,18 @@ typedef void (Glean::graphics::Window::*loopFunc)(); // Just because apple needs
 
 @end
 
+@interface __AWindow : NSWindow
+
+@end
+
+@implementation __AWindow
+
+- (void)keyDown:(NSEvent *)event {
+    
+}
+
+@end
+
 Glean::graphics::Window::Window(const char *title, int width, int height) {
     [NSApplication sharedApplication]; // Create variable NSApp for later use
     [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
@@ -54,7 +66,7 @@ Glean::graphics::Window::Window(const char *title, int width, int height) {
     NSScreen *mainScreen = [NSScreen mainScreen];
     
     NSRect windowRect = NSMakeRect((mainScreen.frame.size.width - width) / 2.0, (mainScreen.frame.size.height - height) / 2.0, (double) width, (double) height);
-    NSWindow *w = [[NSWindow alloc] initWithContentRect:windowRect styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable backing:NSBackingStoreBuffered defer: NO screen:mainScreen];
+    NSWindow *w = [[__AWindow alloc] initWithContentRect:windowRect styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable backing:NSBackingStoreBuffered defer: NO screen:mainScreen];
     window = (__bridge __internalWindow) w;
     
     [w setTitle: [NSString stringWithUTF8String:title]];
@@ -62,6 +74,10 @@ Glean::graphics::Window::Window(const char *title, int width, int height) {
     [w setAcceptsMouseMovedEvents: YES];
     [w setOpaque: NO];
     [w makeKeyAndOrderFront: nil];
+    
+    NSPoint mouseLoc = [w mouseLocationOutsideOfEventStream];
+    Glean::events::mouseX = mouseLoc.x;
+    Glean::events::mouseY = mouseLoc.y;
     
     init();
 }
@@ -72,6 +88,11 @@ bool Glean::graphics::Window::fetchEvents() {
     do {
         evnt = [window nextEventMatchingMask:NSEventMaskAny untilDate:[NSDate distantPast] inMode:NSDefaultRunLoopMode dequeue:YES];
         if(evnt) {
+            if(evnt.type == NSEventTypeKeyDown) keysPressed[Glean::events::SCANCODE_TO_KEY[evnt.keyCode] % IMPLEMENTED_KEYS] = true;
+            if(evnt.type == NSEventTypeKeyUp) keysPressed[Glean::events::SCANCODE_TO_KEY[evnt.keyCode] % IMPLEMENTED_KEYS] = false;
+            
+            //printf("%s\n", [evnt.description UTF8String]);
+            
             Glean::events::Event *e = Glean::events::translateEvent((__bridge __internalEvent) evnt);
             if(e) dispatchEvent(e);
             [NSApp sendEvent: evnt]; // Do with event whatever is necessary
@@ -83,5 +104,16 @@ bool Glean::graphics::Window::fetchEvents() {
 }
 
 void Glean::graphics::Window::start() { [NSApp run]; }
+
+void Glean::graphics::Window::captureMouse() {
+    [NSCursor hide];
+    CGDisplayMoveCursorToPoint(kCGDirectMainDisplay, CGPointZero); // If above
+    CGAssociateMouseAndMouseCursorPosition(NO); // Mouse is not cursor
+}
+
+void Glean::graphics::Window::uncaptureMouse() {
+    [NSCursor unhide];
+    CGAssociateMouseAndMouseCursorPosition(YES);
+}
 
 #endif

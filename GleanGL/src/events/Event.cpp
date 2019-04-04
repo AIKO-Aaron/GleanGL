@@ -1,5 +1,7 @@
 #include "Event.h"
 
+unsigned int Glean::events::mouseX = 0, Glean::events::mouseY = 0;
+
 char Glean::events::getCharFromKey(Key keycode) {
     char c = ' ';
     

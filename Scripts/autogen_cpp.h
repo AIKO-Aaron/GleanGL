@@ -22,6 +22,18 @@ PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer = nullptr;
 PFNGLGENVERTEXARRAYSPROC glGenVertexArrays = nullptr;
 PFNGLBINDVERTEXARRAYPROC glBindVertexArray = nullptr;
 PFNGLDRAWARRAYSPROC glDrawArrays = nullptr;
+PFNGLUNIFORM1FPROC glUniform1f = nullptr;
+PFNGLUNIFORM2FPROC glUniform2f = nullptr;
+PFNGLUNIFORM3FPROC glUniform3f = nullptr;
+PFNGLUNIFORM4FPROC glUniform4f = nullptr;
+PFNGLUNIFORM1IPROC glUniform1i = nullptr;
+PFNGLUNIFORM2IPROC glUniform2i = nullptr;
+PFNGLUNIFORM3IPROC glUniform3i = nullptr;
+PFNGLUNIFORM4IPROC glUniform4i = nullptr;
+PFNGLUNIFORM4FVPROC glUniform4fv = nullptr;
+PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv = nullptr;
+PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation = nullptr;
+PFNGLENABLEPROC glEnable = nullptr;
 
 static void initGLean() {
 	INIT_FUNC(glGetString);
@@ -48,4 +60,16 @@ static void initGLean() {
 	INIT_FUNC(glGenVertexArrays);
 	INIT_FUNC(glBindVertexArray);
 	INIT_FUNC(glDrawArrays);
+	INIT_FUNC(glUniform1f);
+	INIT_FUNC(glUniform2f);
+	INIT_FUNC(glUniform3f);
+	INIT_FUNC(glUniform4f);
+	INIT_FUNC(glUniform1i);
+	INIT_FUNC(glUniform2i);
+	INIT_FUNC(glUniform3i);
+	INIT_FUNC(glUniform4i);
+	INIT_FUNC(glUniform4fv);
+	INIT_FUNC(glUniformMatrix4fv);
+	INIT_FUNC(glGetUniformLocation);
+	INIT_FUNC(glEnable);
 }

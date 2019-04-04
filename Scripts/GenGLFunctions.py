@@ -21,7 +21,19 @@ glEnableVertexAttribArray
 glVertexAttribPointer
 glGenVertexArrays
 glBindVertexArray
-glDrawArrays""".split("\n")
+glDrawArrays
+glUniform1f
+glUniform2f
+glUniform3f
+glUniform4f
+glUniform1i
+glUniform2i
+glUniform3i
+glUniform4i
+glUniform4fv
+glUniformMatrix4fv
+glGetUniformLocation
+glEnable""".split("\n")
 
 HEADER = "#pragma once\n"
 for f in functionsToInit:

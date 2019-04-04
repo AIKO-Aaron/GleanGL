@@ -19,7 +19,8 @@ namespace Glean {
 		class Window {
 		private:
 			__internalWindow window;
-
+            bool *keysPressed = new bool[IMPLEMENTED_KEYS];
+            
             void loop();
 			void init();
 			bool fetchEvents();
@@ -31,8 +32,14 @@ namespace Glean {
 		public:
 			Window(const char *title, int width, int height);
 			Window(const char *title, int width, int height, int x, int y);
+            
 			void start();
             
+            void captureMouse();
+            void uncaptureMouse();
+            
+            inline bool isKeyPressed(Glean::events::Key key) { return keysPressed[(int) key]; }
+
             inline void dispatchEvent(Glean::events::Event *e) { for(eventDispatchFunc f : eventHandlers) f(e); }
             
             inline void addRenderFunction(renderFunc rf) { renderFunctions.push_back(rf); }

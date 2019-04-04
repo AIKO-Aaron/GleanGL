@@ -7,8 +7,7 @@ __internalContext Glean::graphics::initGL(__internalWindow window) {
     
     initGLean();
     
-    printf("%p\n", glGetError);
-    printf("%p\n", glGenBuffers);
+    glEnable(GL_DEPTH_TEST);
     
     const char *vers = (const char*) glGetString(GL_VERSION);
     printf("[GLEAN][INFO] Loaded OpenGL Version: %s\n", vers);

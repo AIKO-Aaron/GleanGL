@@ -7,8 +7,6 @@
 
 using namespace Glean::events;
 
-#define IMPLEMENTED_KEYS 0xFF
-
 const Key *Glean::events::SCANCODE_TO_KEY = new Glean::events::Key[IMPLEMENTED_KEYS] {
 	Key::kUnknown, // 0x0
 	Key::kUnknown, // 0x1
@@ -309,13 +307,13 @@ Glean::events::Event *Glean::events::translateEvent(__internalEvent evt) {
 
 		MouseMotionEvent *mEvent = new MouseMotionEvent();
 		mEvent->type = MOUSEMOTION;
-		mEvent->dx = mouseX - x;
-		mEvent->dy = mouseY - y;
+        mEvent->dx = x - mouseX;
+        mEvent->dy = y - mouseY;
 		mEvent->xPos = x;
 		mEvent->yPos = y;
 
 		mouseX = x;
-		mouseX = y;
+		mouseY = y;
 
 		return mEvent;
 	}

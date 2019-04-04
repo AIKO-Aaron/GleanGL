@@ -2,21 +2,27 @@
 
 #include "graphics/Window.h"
 #include "graphics/Shader.h"
-#include "math/Matrix.h"
+#include "math/GleanMath.h"
+#include "graphics/Camera.h"
 
 using namespace Glean::graphics;
 
+static Glean::graphics::Window *window;
 static Glean::graphics::Shader *shader;
 static GLuint vboID, vioID;
+static float angle = 0;
+static Camera c;
 
 void handleEvent(Glean::events::Event *e) {
     if(e->type == Glean::events::KEYDOWN) {
         Glean::events::KeyEvent *kEvent = e->asKeyEvent();
         if(kEvent->isPlatformCtrlDown() && kEvent->key == Glean::events::kQ) exit(0);
         //printf("[SANDBOX][DEBUG] Pressed Key: %c\n", Glean::events::getCharFromKey(kEvent->key));
+        // if(kEvent->key == Glean::events::kW) c.move(Glean::math::createVector(0, 0, 0.01));
 	}
 	else if (e->type == Glean::events::MOUSEMOTION) {
 		Glean::events::MouseMotionEvent *mEvent = e->asMouseMotionEvent();
+        c.rotate(mEvent);
 		//printf("[SANDBOX][DEBUG] Mouse position on screen: %d|%d\n", mEvent->xPos, mEvent->yPos);
 	}
 }
@@ -24,7 +30,23 @@ void handleEvent(Glean::events::Event *e) {
 void render(Glean::graphics::Renderer *renderer) {
     renderer->clearColor(1, 0, 0, 1);
 
+    angle += 0.01f;
+    
+    float dx = 0;
+    float dz = 0;
+    
+    if(window->isKeyPressed(Glean::events::kA)) dx += 0.1f;
+    if(window->isKeyPressed(Glean::events::kD)) dx -= 0.1f;
+    if(window->isKeyPressed(Glean::events::kS)) dz += 0.1f;
+    if(window->isKeyPressed(Glean::events::kW)) dz -= 0.1f;
+    
+    //Glean::math::Vector<4> moveVec = Glean::math::createVector(dx, 0, dz, 0);
+    //c.move(c.getTransformation().inverse() * moveVec);
+    
+
     shader->bind();
+    shader->uniform("angle", angle);
+    shader->uniform("camera", c.getTransformation());
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
@@ -43,17 +65,18 @@ void render(Glean::graphics::Renderer *renderer) {
 }
 
 int main(int argc, char **args) {    
-	Window *window = new Window("Hello World", 960, 540);
+	window = new Window("Hello World", 960, 540);
+    window->captureMouse();
     window->addEventHandler(handleEvent);
     window->addRenderFunction(render);
     
     glGenBuffers(1, &vboID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 4 * 6, new float[4 * 6] {
-        -0.5f, -0.5f, 0, 1, 1, 1,
+        -0.5f, -0.5f, 1, 1, 0, 1,
          0.5f, -0.5f, 1, 1, 1, 1,
-         0.5f,  0.5f, -1, 1, 1, 1,
-        -0.5f,  0.5f, -1, 1, 1, 1
+         0.5f,  0.5f, 1, 1, 1, 1,
+        -0.5f,  0.5f, 1, 1, 1, 1
     }, GL_STATIC_DRAW);
     
     glGenBuffers(1, &vioID);
@@ -62,10 +85,12 @@ int main(int argc, char **args) {
     
     shader = Glean::graphics::loadShaderRecursive("assets/shader.vert", "assets/shader.frag");
 
-    Glean::math::Matrix<2, 3> m1(new float[6]{ 1, 2, 3, 4, 5, 6 });
-    Glean::math::Matrix<3, 2> m2(new float[6]{ 7, 8, 9, 10, 11, 12});
+    Glean::math::Matrix<3, 3> m;
+    m(0, 0) =  0; m(0, 1) = 1; m(0, 2) = 2;
+    m(1, 0) = -1; m(1, 1) = 2; m(1, 2) = 4;
+    m(2, 0) = -1; m(2, 1) = 2; m(2, 2) = 5;
+    m.inverse();
     
-    (m1 * m2).print();
     
 	window->start();
 

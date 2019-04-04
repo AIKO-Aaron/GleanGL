@@ -265,6 +265,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TPDPL7CQS;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../GleanGL/src";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -275,6 +276,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TPDPL7CQS;
+				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../GleanGL/src";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
