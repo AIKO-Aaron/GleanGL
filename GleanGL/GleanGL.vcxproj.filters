@@ -45,6 +45,9 @@
     <ClInclude Include="src\graphics\Shader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\FileUtil.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\Window.cpp">
@@ -72,6 +75,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Universal\OpenGL\GleanGL.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\FileUtil.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

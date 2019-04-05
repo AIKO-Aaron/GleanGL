@@ -125,6 +125,7 @@
     <ClInclude Include="src\graphics\Universal\Platform.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
     <ClInclude Include="src\graphics\Window.h" />
+    <ClInclude Include="src\util\FileUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\events\Event.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\graphics\Windows\Win_Library.cpp" />
     <ClCompile Include="src\graphics\Windows\Win_Window.cpp" />
+    <ClCompile Include="src\util\FileUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\graphics\Mac\Mac_Library.mm" />
