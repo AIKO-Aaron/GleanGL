@@ -40,8 +40,8 @@ void render(Glean::graphics::Renderer *renderer) {
     if(window->isKeyPressed(Glean::events::kS)) dz += 0.1f;
     if(window->isKeyPressed(Glean::events::kW)) dz -= 0.1f;
     
-    //Glean::math::Vector<4> moveVec = Glean::math::createVector(dx, 0, dz, 0);
-    //c.move(c.getTransformation().inverse() * moveVec);
+    Glean::math::Vector<4> moveVec = Glean::math::createVector(dx, 0, dz, 0);
+    c.move(c.getTransformation().inverse() * moveVec);
     
 
     shader->bind();
@@ -84,13 +84,6 @@ int main(int argc, char **args) {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned char) * 6, new unsigned char[6] { 0, 1, 2, 2, 3, 0 }, GL_STATIC_DRAW);
     
     shader = Glean::graphics::loadShaderRecursive("assets/shader.vert", "assets/shader.frag");
-
-    Glean::math::Matrix<3, 3> m;
-    m(0, 0) =  0; m(0, 1) = 1; m(0, 2) = 2;
-    m(1, 0) = -1; m(1, 1) = 2; m(1, 2) = 4;
-    m(2, 0) = -1; m(2, 1) = 2; m(2, 2) = 5;
-    m.inverse();
-    
     
 	window->start();
 

@@ -107,7 +107,7 @@ void Glean::graphics::Window::start() { [NSApp run]; }
 
 void Glean::graphics::Window::captureMouse() {
     [NSCursor hide];
-    CGDisplayMoveCursorToPoint(kCGDirectMainDisplay, CGPointZero); // If above
+    //CGDisplayMoveCursorToPoint(kCGDirectMainDisplay, CGPointZero); // If above
     CGAssociateMouseAndMouseCursorPosition(NO); // Mouse is not cursor
 }
 

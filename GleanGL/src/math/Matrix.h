@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <string>
 
 #define PI 3.14159265358979323
@@ -78,8 +79,20 @@ namespace Glean {
                 }
             }
             
+            inline void swapRows(int r1, int r2) {
+                for(int i = 0; i < N; i++) {
+                    float tmp = mValues[i * N + r1];
+                    mValues[i * N + r1] = mValues[i * N + r2];
+                    mValues[i * N + r2] = tmp;
+                }
+            }
+            
             inline void subtractColumns(int c1, int c2) { // c1 -= c2
                 for(int i = 0; i < N; i++) mValues[c1 * N + i] -= mValues[c2 * N + i];
+            }
+            
+            inline void subtractMultipliedColumns(int c1, int c2, float factor) { // c1 -= f * c2
+                for(int i = 0; i < N; i++) mValues[c1 * N + i] -= factor * mValues[c2 * N + i];
             }
             
             inline void multiplyColumn(int c, float factor) {
@@ -102,65 +115,50 @@ namespace Glean {
             Matrix<M, M> s(*this); // Copy of self
             Matrix<M, M> r; for(int i = 0; i < M; i++) r(i, i) = 1; // identity matrix
             
-            // print();
-            for(int i = 0; i < M - 1; i++) {
+            for(int i = 0; i < M; i++) {
+                float currentMax = abs(s[i * M + i]);
+                int maxRow = i;
                 for(int j = i + 1; j < M; j++) {
-                    int k = 0;
-                    while((s[i * M + k] == 0 || s[j * M + k] == 0) && ++k < M);
-                    if(k < M) {
-                        float factor = s[i * M + k] / s[j * M + k];
-                        s.multiplyColumn(j, factor);
-                        r.multiplyColumn(j, factor);
-                        s.subtractColumns(j, i);
-                        r.subtractColumns(j, i);
-                        //printf("Step 1: %f * %d - %d (Eliminating %d)\n", factor, j, i, k);
-                        //s.print();
+                    if(abs(s[j * M + i]) > currentMax) {
+                        currentMax = abs(s[j * M + i]);
+                        maxRow = j;
+                    }
+                }
+                
+                s.swapColumns(i, maxRow);
+                r.swapColumns(i, maxRow);
+                
+                for(int j = i + 1; j < M; j++) {
+                    float factor = s[j * M + i] / s[i * M + i];
+                    if(factor != 0) {
+                        s.subtractMultipliedColumns(j, i, factor);
+                        r.subtractMultipliedColumns(j, i, factor);
+                        
+                        s(j, i) = 0; // Manually set it to 0
                     }
                 }
             }
-            for(int i = M - 1; i > 0; i--) {
-                for(int j = i - 1; j >= 0; j--) {
-                    int k = 0;
-                    while((s[i * M + k] == 0 || s[j * M + k] == 0) && ++k < M);
-                    if(k < M) {
-                        float factor = s[i * M + k] / s[j * M + k];
-                        s.multiplyColumn(j, factor);
-                        r.multiplyColumn(j, factor);
-                        s.subtractColumns(j, i);
-                        r.subtractColumns(j, i);
-                        //printf("Step 2: %f * %d - %d (Eliminating %d)\n", factor, j, i, k);
-                        //s.print();
+            
+            // We got a upper right triangular matrix now...
+            for(int i = M - 2; i >= 0; i--) { // Go from bottom to the top
+                for(int j = i + 1; j < M; j++) {
+                    float factor = s[j + i * M] / s[j + j * M];
+                    if(factor != 0) {
+                        s.subtractMultipliedColumns(i, j, factor);
+                        r.subtractMultipliedColumns(i, j, factor);
+                        
+                        s(i, j) = 0;
                     }
                 }
             }
             
             for(int i = 0; i < M; i++) {
-                for(int k = 0; k < M; k++) {
-                    if(s[i * M + k] != 0) {
-                        float factor = 1.0f / s[i * M + k];
-                        s.multiplyColumn(i, factor);
-                        r.multiplyColumn(i, factor);
-                        
-                        for(int j = 0; j < M; j++) {
-                            if(s[k * M + j] != 0) {
-                                factor = 1.0f / s[k * M + j];
-                                s.multiplyColumn(k, factor);
-                                r.multiplyColumn(k, factor);
-                            }
-                        }
-                        
-                        s.swapColumns(i, k);
-                        r.swapColumns(i, k);
-
-                        break;
-                    }
+                if(s[i * M + i] < 0) {
+                    s.multiplyColumn(i, -1);
+                    r.multiplyColumn(i, -1);
                 }
             }
-            s.print();
-            //(*this*r).print();
             
-            // FCK this
-
             return r;
         }
     }
