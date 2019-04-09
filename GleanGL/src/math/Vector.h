@@ -27,6 +27,8 @@ namespace Glean {
             
             inline float length() { float l = 0; for(int i = 0; i < M; i++) l += this->mValues[i] * this->mValues[i]; return sqrt(l); }
             inline float lengthSquared() { float l = 0; for(int i = 0; i < M; i++) l += this->mValues[i] * this->mValues[i]; return l; }
+       
+            inline Vector<M> normalize() { float l = length(); for(int i = 0; i < M; i++) this->mValues[i] /= l; return *this; }
         };
         
         template<int M>

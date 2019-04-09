@@ -91,7 +91,13 @@ bool Glean::graphics::Window::fetchEvents() {
             if(evnt.type == NSEventTypeKeyDown) keysPressed[Glean::events::SCANCODE_TO_KEY[evnt.keyCode] % IMPLEMENTED_KEYS] = true;
             if(evnt.type == NSEventTypeKeyUp) keysPressed[Glean::events::SCANCODE_TO_KEY[evnt.keyCode] % IMPLEMENTED_KEYS] = false;
             
-            //printf("%s\n", [evnt.description UTF8String]);
+            if(evnt.type == NSEventTypeFlagsChanged) {
+                keysPressed[Glean::events::kSHIFT] = evnt.modifierFlags & NSEventModifierFlagShift;
+                keysPressed[Glean::events::kCONTROL] = evnt.modifierFlags & NSEventModifierFlagOption;
+                keysPressed[Glean::events::kALT] = evnt.modifierFlags & NSEventModifierFlagOption;
+            }
+            
+            // printf("%s\n", [evnt.description UTF8String]);
             
             Glean::events::Event *e = Glean::events::translateEvent((__bridge __internalEvent) evnt);
             if(e) dispatchEvent(e);

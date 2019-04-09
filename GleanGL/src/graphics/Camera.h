@@ -9,8 +9,9 @@ namespace Glean {
         
         class Camera {
         private:
-            Glean::math::Vector<3> cPosition; // 0, 0, 0
-            Glean::math::Vector<4> cDirection = Glean::math::createVector(0, 0, 1, 0); // 0, 0, 0, 0
+            Glean::math::Vector<3> cPosition; // 0, 0, 0            
+            Glean::math::Vector<3> cAngles = Glean::math::createVector(0, PI, 0);
+            
 
         public:
             inline void move(Glean::math::Vector<3> moved) { cPosition += moved; }

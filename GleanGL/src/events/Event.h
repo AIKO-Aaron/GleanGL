@@ -35,7 +35,8 @@ namespace Glean {
 			kCOMMA, kPERIOD, kMINUS, kPLUS,
             kUP, kDOWN, kLEFT, kRIGHT,
             kSPACE, kTAB, kENTER, kESCAPE,
-			kF1, kF2, kF3, kF4, kF5, kF6, kF7, kF8, kF9, kF10, kF11, kF12, kF13, kF14, kF15
+			kF1, kF2, kF3, kF4, kF5, kF6, kF7, kF8, kF9, kF10, kF11, kF12, kF13, kF14, kF15,
+            kSHIFT, kCONTROL, kALT
         };
         
         

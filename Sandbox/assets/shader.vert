@@ -15,5 +15,5 @@ uniform mat4 camera = mat4(
 
 void main() {
     vertColor = attribVertColor;
-    gl_Position = perspective(PI / 2.0, 0.1, 10) * camera * vec4(attribVertPosition, 1.0);
+    gl_Position = perspective(PI / 4.0, 0.1, 100) * camera * vec4(attribVertPosition, 1.0);
 }

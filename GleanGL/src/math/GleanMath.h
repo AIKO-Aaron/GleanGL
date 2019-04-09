@@ -43,8 +43,8 @@ namespace Glean {
             Matrix<4, 4> r = identity<4>();
 
             r(0, 0) = cos(angle);
-            r(0, 1) = sin(angle);
-            r(1, 0) = -sin(angle);
+            r(0, 1) = -sin(angle);
+            r(1, 0) = sin(angle);
             r(1, 1) = cos(angle);
             r(2, 2) = 1;
             r(3, 3) = 1;

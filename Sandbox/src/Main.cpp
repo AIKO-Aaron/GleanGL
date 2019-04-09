@@ -28,22 +28,26 @@ void handleEvent(Glean::events::Event *e) {
 }
 
 void render(Glean::graphics::Renderer *renderer) {
-    renderer->clearColor(1, 0, 0, 1);
+    renderer->clearColor(0, 0, 0, 1);
 
     angle += 0.01f;
     
     float dx = 0;
+    float dy = 0;
     float dz = 0;
     
-    if(window->isKeyPressed(Glean::events::kA)) dx += 0.1f;
-    if(window->isKeyPressed(Glean::events::kD)) dx -= 0.1f;
-    if(window->isKeyPressed(Glean::events::kS)) dz += 0.1f;
-    if(window->isKeyPressed(Glean::events::kW)) dz -= 0.1f;
-    
-    Glean::math::Vector<4> moveVec = Glean::math::createVector(dx, 0, dz, 0);
-    c.move(c.getTransformation().inverse() * moveVec);
-    
+    if(window->isKeyPressed(Glean::events::kA)) dx -= 0.1f;
+    if(window->isKeyPressed(Glean::events::kD)) dx += 0.1f;
+    if(window->isKeyPressed(Glean::events::kS)) dz -= 0.1f;
+    if(window->isKeyPressed(Glean::events::kW)) dz += 0.1f;
+    if(window->isKeyPressed(Glean::events::kSHIFT)) dy -= 0.1f;
+    if(window->isKeyPressed(Glean::events::kSPACE)) dy += 0.1f;
 
+    Glean::math::Vector<4> moveVec = Glean::math::createVector(dx, 0, dz, 0);
+    Glean::math::Vector<4> m = c.getTransformation().inverse() * moveVec;
+    m[1] = -dy;
+    c.move(m);
+    
     shader->bind();
     shader->uniform("angle", angle);
     shader->uniform("camera", c.getTransformation());
@@ -53,7 +57,7 @@ void render(Glean::graphics::Renderer *renderer) {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*) 0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*) (sizeof(float) * 3));
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vioID);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
+    glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_BYTE, 0);
     
     GLuint err;
     if((err = glGetError()) != GL_NO_ERROR) {
@@ -72,16 +76,26 @@ int main(int argc, char **args) {
     
     glGenBuffers(1, &vboID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 4 * 6, new float[4 * 6] {
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12 * 6, new float[12 * 6] {
         -0.5f, -0.5f, 1, 1, 0, 1,
          0.5f, -0.5f, 1, 1, 1, 1,
          0.5f,  0.5f, 1, 1, 1, 1,
-        -0.5f,  0.5f, 1, 1, 1, 1
+        -0.5f,  0.5f, 1, 1, 1, 1,
+        
+        1, 0, 1, 0, 0, 1,
+        2, 0, 1, 0, 0, 1,
+        2, 0, 2, 0, 0, 1,
+        1, 0, 2, 0, 0, 1,
+        
+        -1, 2, -1, 1, 0, 1,
+         1, 2, -1, 1, 0, 1,
+         1, 2,  1, 1, 0, 1,
+        -1, 2,  1, 1, 0, 1,
     }, GL_STATIC_DRAW);
     
     glGenBuffers(1, &vioID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vioID);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned char) * 6, new unsigned char[6] { 0, 1, 2, 2, 3, 0 }, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned char) * 18, new unsigned char[18] { 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4, 8, 9, 10, 10, 11, 8 }, GL_STATIC_DRAW);
     
     shader = Glean::graphics::loadShaderRecursive("assets/shader.vert", "assets/shader.frag");
     

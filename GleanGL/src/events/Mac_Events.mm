@@ -66,10 +66,10 @@ const Key *Glean::events::SCANCODE_TO_KEY = new Key[IMPLEMENTED_KEYS] {
     Key::kUnknown, // 53: Escape
     Key::kUnknown, // 54: RightCommand
     Key::kUnknown, // 55: Command
-    Key::kUnknown, // 56: Shift
+    Key::kSHIFT, // 56: Shift
     Key::kUnknown, // 57: CapsLock
-    Key::kUnknown, // 58: Option
-    Key::kUnknown, // 59: Control
+    Key::kALT, // 58: Option
+    Key::kCONTROL, // 59: Control
     Key::kUnknown, // 60: RightShift
     Key::kUnknown, // 61: RightOption
     Key::kUnknown, // 62: RightControl
@@ -204,6 +204,10 @@ const int *Glean::events::KEY_TO_SCANCODE = new int[IMPLEMENTED_KEYS] {
     
     kVK_Space,
     kVK_Return,
+    
+    kVK_Shift,
+    kVK_Control,
+    kVK_Option,
 };
 
 Event *Glean::events::translateEvent(__internalEvent evt) {
