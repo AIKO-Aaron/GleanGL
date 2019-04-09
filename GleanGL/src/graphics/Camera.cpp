@@ -5,8 +5,8 @@ using namespace Glean::graphics;
 void Glean::graphics::Camera::rotate(Glean::math::Vector<3> rotations) {
     cAngles += rotations;
     
-    if(cAngles[0] <= -PI / 2.0f) cAngles[0] = -PI / 2.0f;
-    if(cAngles[0] >= PI / 2.0f) cAngles[0] = PI / 2.0f;
+    if(cAngles[0] < -PI / 2.0f) cAngles[0] = -PI / 2.0f + 0.00001f;
+    if(cAngles[0] > PI / 2.0f) cAngles[0] = PI / 2.0f - 0.00001f;
 }
 
 void Glean::graphics::Camera::rotate(Glean::events::MouseMotionEvent *mEvent, float sensitivity) {
@@ -20,7 +20,6 @@ Glean::math::Matrix<4, 4> Glean::graphics::Camera::getTransformation() {
     frontVert = Glean::math::rotate_x(cAngles[0]) * frontVert;
     frontVert = Glean::math::rotate_y(cAngles[1]) * frontVert;
     frontVert = Glean::math::rotate_z(cAngles[2]) * frontVert;
-    // frontVert.print();
     frontVert.normalize();
     
     Glean::math::Vector<3> up = Glean::math::createVector(0, 1, 0); // Up is always just 0,1,0

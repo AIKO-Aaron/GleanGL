@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		93A0B64F2252A2E8004B05EF /* RendererVulkan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B63F2252A2E8004B05EF /* RendererVulkan.cpp */; };
 		93A0B6502252A2E8004B05EF /* RendererOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B6402252A2E8004B05EF /* RendererOpenGL.cpp */; };
 		93A0B6512252A2E8004B05EF /* Platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 93A0B6412252A2E8004B05EF /* Platform.h */; };
 		93A0B6522252A2E8004B05EF /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 93A0B6432252A2E8004B05EF /* glext.h */; };
@@ -24,6 +23,12 @@
 		93A0B67E2252AEB8004B05EF /* Mac_Library.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B67D2252AEB8004B05EF /* Mac_Library.mm */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		93A0B684225366F2004B05EF /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B683225366F2004B05EF /* Event.cpp */; };
 		93F311F2225C982A0067F76C /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F311F1225C982A0067F76C /* Mesh.cpp */; };
+		93F311F7225CA51C0067F76C /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F311F5225CA51C0067F76C /* Sphere.cpp */; };
+		93F311F8225CA51C0067F76C /* Sphere.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F311F6225CA51C0067F76C /* Sphere.h */; };
+		93F311FC225CD3370067F76C /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F311FA225CD3370067F76C /* Material.cpp */; };
+		93F311FD225CD3370067F76C /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F311FB225CD3370067F76C /* Material.h */; };
+		93F31200225CD3680067F76C /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F311FE225CD3680067F76C /* Light.cpp */; };
+		93F31201225CD3680067F76C /* Light.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F311FF225CD3680067F76C /* Light.h */; };
 		93F3610B225488FA004C3282 /* Win_Events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F36109225488FA004C3282 /* Win_Events.cpp */; };
 		93F3610C225488FA004C3282 /* Mac_Events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93F3610A225488FA004C3282 /* Mac_Events.mm */; };
 		93F3610E2254892B004C3282 /* GleanGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F3610D2254892B004C3282 /* GleanGL.cpp */; };
@@ -40,7 +45,6 @@
 
 /* Begin PBXFileReference section */
 		93A0B6352252A2CF004B05EF /* libGleanGL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGleanGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		93A0B63F2252A2E8004B05EF /* RendererVulkan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RendererVulkan.cpp; sourceTree = "<group>"; };
 		93A0B6402252A2E8004B05EF /* RendererOpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RendererOpenGL.cpp; sourceTree = "<group>"; };
 		93A0B6412252A2E8004B05EF /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		93A0B6432252A2E8004B05EF /* glext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glext.h; sourceTree = "<group>"; };
@@ -58,6 +62,12 @@
 		93A0B683225366F2004B05EF /* Event.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
 		93F311F1225C982A0067F76C /* Mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		93F311F3225C98360067F76C /* Mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		93F311F5225CA51C0067F76C /* Sphere.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		93F311F6225CA51C0067F76C /* Sphere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
+		93F311FA225CD3370067F76C /* Material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
+		93F311FB225CD3370067F76C /* Material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
+		93F311FE225CD3680067F76C /* Light.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
+		93F311FF225CD3680067F76C /* Light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		93F36109225488FA004C3282 /* Win_Events.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Win_Events.cpp; sourceTree = "<group>"; };
 		93F3610A225488FA004C3282 /* Mac_Events.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Mac_Events.mm; sourceTree = "<group>"; };
 		93F3610D2254892B004C3282 /* GleanGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GleanGL.cpp; sourceTree = "<group>"; };
@@ -113,6 +123,7 @@
 		93A0B63D2252A2E8004B05EF /* graphics */ = {
 			isa = PBXGroup;
 			children = (
+				93F311F9225CD2C80067F76C /* lighting */,
 				93F311F4225CA0C70067F76C /* native */,
 				93F311F0225C98120067F76C /* objects */,
 				93F3611022548978004C3282 /* Shader.cpp */,
@@ -129,7 +140,6 @@
 		93A0B63E2252A2E8004B05EF /* Universal */ = {
 			isa = PBXGroup;
 			children = (
-				93A0B63F2252A2E8004B05EF /* RendererVulkan.cpp */,
 				93A0B6402252A2E8004B05EF /* RendererOpenGL.cpp */,
 				93A0B6412252A2E8004B05EF /* Platform.h */,
 				93A0B6422252A2E8004B05EF /* OpenGL */,
@@ -192,6 +202,8 @@
 			children = (
 				93F311F1225C982A0067F76C /* Mesh.cpp */,
 				93F311F3225C98360067F76C /* Mesh.h */,
+				93F311F5225CA51C0067F76C /* Sphere.cpp */,
+				93F311F6225CA51C0067F76C /* Sphere.h */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -204,6 +216,17 @@
 				93A0B64B2252A2E8004B05EF /* Windows */,
 			);
 			path = native;
+			sourceTree = "<group>";
+		};
+		93F311F9225CD2C80067F76C /* lighting */ = {
+			isa = PBXGroup;
+			children = (
+				93F311FA225CD3370067F76C /* Material.cpp */,
+				93F311FB225CD3370067F76C /* Material.h */,
+				93F311FE225CD3680067F76C /* Light.cpp */,
+				93F311FF225CD3680067F76C /* Light.h */,
+			);
+			path = lighting;
 			sourceTree = "<group>";
 		};
 		93F3611F225523E2004C3282 /* math */ = {
@@ -224,13 +247,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				93F3611122548978004C3282 /* Shader.h in Headers */,
+				93F311FD225CD3370067F76C /* Material.h in Headers */,
 				93F3612B22560DBD004C3282 /* Camera.h in Headers */,
 				93F3612722552441004C3282 /* Matrix.h in Headers */,
 				93A0B6512252A2E8004B05EF /* Platform.h in Headers */,
 				93F3611922548DB9004C3282 /* FileUtil.h in Headers */,
 				93A0B6582252A2E8004B05EF /* Renderer.h in Headers */,
+				93F31201225CD3680067F76C /* Light.h in Headers */,
 				93F3612D22562684004C3282 /* GleanMath.h in Headers */,
 				93A0B6552252A2E8004B05EF /* khrplatform.h in Headers */,
+				93F311F8225CA51C0067F76C /* Sphere.h in Headers */,
 				93F36121225523FE004C3282 /* Vector.h in Headers */,
 				93A0B6532252A2E8004B05EF /* GleanGL.h in Headers */,
 				93A0B6542252A2E8004B05EF /* glcorearb.h in Headers */,
@@ -296,10 +322,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93F31200225CD3680067F76C /* Light.cpp in Sources */,
 				93A0B65A2252A2E8004B05EF /* Win_Window.cpp in Sources */,
 				93A0B65C2252A2E8004B05EF /* Win_Library.cpp in Sources */,
+				93F311F7225CA51C0067F76C /* Sphere.cpp in Sources */,
 				93F3612A22560DBD004C3282 /* Camera.cpp in Sources */,
-				93A0B64F2252A2E8004B05EF /* RendererVulkan.cpp in Sources */,
 				93A0B6562252A2E8004B05EF /* Window.cpp in Sources */,
 				93A0B684225366F2004B05EF /* Event.cpp in Sources */,
 				93A0B6502252A2E8004B05EF /* RendererOpenGL.cpp in Sources */,
@@ -310,6 +337,7 @@
 				93F3610C225488FA004C3282 /* Mac_Events.mm in Sources */,
 				93A0B67C2252A3B1004B05EF /* Mac_Window.mm in Sources */,
 				93F3611222548978004C3282 /* Shader.cpp in Sources */,
+				93F311FC225CD3370067F76C /* Material.cpp in Sources */,
 				93F3610E2254892B004C3282 /* GleanGL.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

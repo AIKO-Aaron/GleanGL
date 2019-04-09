@@ -3,6 +3,7 @@
 #include "graphics/Window.h"
 #include "graphics/Shader.h"
 #include "graphics/objects/Mesh.h"
+#include "graphics/objects/Sphere.h"
 #include "math/GleanMath.h"
 #include "graphics/Camera.h"
 
@@ -57,7 +58,7 @@ void render(Glean::graphics::Renderer *renderer) {
     
     GLuint err;
     if((err = glGetError()) != GL_NO_ERROR) {
-        printf("Error happened: %d\n", err);
+        printf("[SANDBODX][ERROR] GL-Error has occured: %d\n", err);
         exit(0);
     }
     
@@ -96,7 +97,7 @@ int main(int argc, char **args) {
     verticies.push_back(Glean::math::createVector(-1, 2,  1));
     verticies.push_back(Glean::math::createVector(-1, 2, -1));
     
-    mesh = new Glean::graphics::Mesh(verticies);
+    mesh = generateSphere(Glean::math::createVector(0, 0, 3), 1); //new Glean::graphics::Mesh(verticies);
      
     shader = Glean::graphics::loadShaderRecursive("assets/shader.vert", "assets/shader.frag");
     

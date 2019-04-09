@@ -30,14 +30,15 @@ Glean::graphics::Mesh::Mesh(std::vector<Glean::math::Vector<3>> verticies) {
             
             indicies[3 * i + j] = 3 * i + j;
         }
-        
-        glGenBuffers(2, vertexBuffers);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffers[0]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData) * verticies.size(), data, GL_STATIC_DRAW);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertexBuffers[1]);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * verticies.size(), indicies, GL_STATIC_DRAW);
     }
-    
+    glGenBuffers(2, vertexBuffers);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffers[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData) * verticies.size(), data, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertexBuffers[1]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * verticies.size(), indicies, GL_STATIC_DRAW);
+
+    delete[] data;
+    delete[] indicies;
 }
 
 void Glean::graphics::Mesh::render() {
