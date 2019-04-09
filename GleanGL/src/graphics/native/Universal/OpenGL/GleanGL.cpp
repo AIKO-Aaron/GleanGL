@@ -1,6 +1,6 @@
 #include "GleanGL.h"
 
-#include "../../../../../Scripts/autogen_cpp.h"
+#include "../../../../../../Scripts/autogen_cpp.h"
 
 __internalContext Glean::graphics::initGL(__internalWindow window) {
     __internalContext c = Glean::graphics::createGLContext(window);

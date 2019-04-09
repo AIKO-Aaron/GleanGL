@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "../../math/GleanMath.h"
-#include "../Universal/OpenGL/GleanGL.h"
+#include "../native/Universal/OpenGL/GleanGL.h"
 
 namespace Glean {
     namespace graphics {

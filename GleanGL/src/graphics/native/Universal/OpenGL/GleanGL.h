@@ -12,4 +12,4 @@
 #  define INIT_FUNC(funcname) funcname = (decltype(funcname)) Glean::library::getGLFunction(#funcname)
 #endif
 
-#include "../../../../../Scripts/autogen_header.h"
+#include "../../../../../../Scripts/autogen_header.h"

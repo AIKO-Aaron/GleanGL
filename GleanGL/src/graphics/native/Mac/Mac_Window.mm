@@ -9,7 +9,7 @@
 #ifdef __APPLE__
 
 #import <Cocoa/Cocoa.h>
-#include "../Window.h"
+#include "../../Window.h"
 
 typedef void (Glean::graphics::Window::*loopFunc)(); // Just because apple needs the appdelegate
 

@@ -113,10 +113,8 @@
 		93A0B63D2252A2E8004B05EF /* graphics */ = {
 			isa = PBXGroup;
 			children = (
+				93F311F4225CA0C70067F76C /* native */,
 				93F311F0225C98120067F76C /* objects */,
-				93A0B63E2252A2E8004B05EF /* Universal */,
-				93A0B67A2252A38B004B05EF /* Mac */,
-				93A0B64B2252A2E8004B05EF /* Windows */,
 				93F3611022548978004C3282 /* Shader.cpp */,
 				93F3610F22548978004C3282 /* Shader.h */,
 				93A0B64A2252A2E8004B05EF /* Window.h */,
@@ -196,6 +194,16 @@
 				93F311F3225C98360067F76C /* Mesh.h */,
 			);
 			path = objects;
+			sourceTree = "<group>";
+		};
+		93F311F4225CA0C70067F76C /* native */ = {
+			isa = PBXGroup;
+			children = (
+				93A0B63E2252A2E8004B05EF /* Universal */,
+				93A0B67A2252A38B004B05EF /* Mac */,
+				93A0B64B2252A2E8004B05EF /* Windows */,
+			);
+			path = native;
 			sourceTree = "<group>";
 		};
 		93F3611F225523E2004C3282 /* math */ = {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Universal/OpenGL/GleanGL.h"
+#include "native/Universal/OpenGL/GleanGL.h"
 #include "../math/GleanMath.h"
 #include "../util/FileUtil.h"
 #include <string>
