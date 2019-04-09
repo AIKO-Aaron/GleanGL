@@ -2,6 +2,7 @@
 
 #include "graphics/Window.h"
 #include "graphics/Shader.h"
+#include "graphics/objects/Mesh.h"
 #include "math/GleanMath.h"
 #include "graphics/Camera.h"
 
@@ -9,9 +10,9 @@ using namespace Glean::graphics;
 
 static Glean::graphics::Window *window;
 static Glean::graphics::Shader *shader;
-static GLuint vboID, vioID;
 static float angle = 0;
 static Camera c;
+static Glean::graphics::Mesh *mesh;
 
 void handleEvent(Glean::events::Event *e) {
     if(e->type == Glean::events::KEYDOWN) {
@@ -51,13 +52,8 @@ void render(Glean::graphics::Renderer *renderer) {
     shader->bind();
     shader->uniform("angle", angle);
     shader->uniform("camera", c.getTransformation());
-    glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*) 0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*) (sizeof(float) * 3));
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vioID);
-    glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_BYTE, 0);
+    
+    mesh->render();
     
     GLuint err;
     if((err = glGetError()) != GL_NO_ERROR) {
@@ -74,29 +70,34 @@ int main(int argc, char **args) {
     window->addEventHandler(handleEvent);
     window->addRenderFunction(render);
     
-    glGenBuffers(1, &vboID);
-    glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12 * 6, new float[12 * 6] {
-        -0.5f, -0.5f, 1, 1, 0, 1,
-         0.5f, -0.5f, 1, 1, 1, 1,
-         0.5f,  0.5f, 1, 1, 1, 1,
-        -0.5f,  0.5f, 1, 1, 1, 1,
-        
-        1, 0, 1, 0, 0, 1,
-        2, 0, 1, 0, 0, 1,
-        2, 0, 2, 0, 0, 1,
-        1, 0, 2, 0, 0, 1,
-        
-        -1, 2, -1, 1, 0, 1,
-         1, 2, -1, 1, 0, 1,
-         1, 2,  1, 1, 0, 1,
-        -1, 2,  1, 1, 0, 1,
-    }, GL_STATIC_DRAW);
+    std::vector<Glean::math::Vector<3>> verticies;
     
-    glGenBuffers(1, &vioID);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vioID);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned char) * 18, new unsigned char[18] { 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4, 8, 9, 10, 10, 11, 8 }, GL_STATIC_DRAW);
+    verticies.push_back(Glean::math::createVector(-0.5f, -0.5f, 1));
+    verticies.push_back(Glean::math::createVector( 0.5f, -0.5f, 1));
+    verticies.push_back(Glean::math::createVector( 0.5f,  0.5f, 1));
+
+    verticies.push_back(Glean::math::createVector( 0.5f,  0.5f, 1));
+    verticies.push_back(Glean::math::createVector(-0.5f,  0.5f, 1));
+    verticies.push_back(Glean::math::createVector(-0.5f, -0.5f, 1));
     
+    verticies.push_back(Glean::math::createVector(1, 0, 1));
+    verticies.push_back(Glean::math::createVector(2, 0, 1));
+    verticies.push_back(Glean::math::createVector(2, 0, 2));
+    
+    verticies.push_back(Glean::math::createVector(2, 0, 2));
+    verticies.push_back(Glean::math::createVector(1, 0, 2));
+    verticies.push_back(Glean::math::createVector(1, 0, 1));
+
+    verticies.push_back(Glean::math::createVector(-1, 2, -1));
+    verticies.push_back(Glean::math::createVector( 1, 2, -1));
+    verticies.push_back(Glean::math::createVector( 1, 2,  1));
+    
+    verticies.push_back(Glean::math::createVector( 1, 2,  1));
+    verticies.push_back(Glean::math::createVector(-1, 2,  1));
+    verticies.push_back(Glean::math::createVector(-1, 2, -1));
+    
+    mesh = new Glean::graphics::Mesh(verticies);
+     
     shader = Glean::graphics::loadShaderRecursive("assets/shader.vert", "assets/shader.frag");
     
 	window->start();
