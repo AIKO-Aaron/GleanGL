@@ -70,18 +70,29 @@ void render(Glean::graphics::Renderer *renderer) {
 
 int main(int argc, char **args) {    
 	window = new Window("Hello World", 960, 540);
-    window->captureMouse();
-    window->addEventHandler(handleEvent);
-    window->addRenderFunction(render);
+    //window->captureMouse();
+    //window->addEventHandler(handleEvent);
+    //window->addRenderFunction(render);
+	window->close();
     
     //mesh = generateSphere(Glean::math::createVector(0, 0, 3), 1, 100); //new Glean::graphics::Mesh(verticies);
 	mesh = generateSphere(Glean::math::createVector(0, 0, -3), 1, 100); //new Glean::graphics::Mesh(verticies);
 
     shader = Glean::graphics::loadShaderRecursive("assets/shader.vert", "assets/shader.frag");
     
-    testCL();
+    // testCL();
     
-	window->start();
+	initCL();
+	Glean::math::Vector<4> cpos = Glean::math::createVector(0, 0, 1, 1);
+	Glean::math::Vector<2> cangles = Glean::math::createVector(PI, 0);
+
+	for (int i = 0; i < 200; i++) {
+		testRay(cpos, cangles);
+		cangles[0] += PI / 100.0f;
+	}
+
+	window->close();
+	//window->start();
     
 #ifdef _WIN32
 	std::cin.get();

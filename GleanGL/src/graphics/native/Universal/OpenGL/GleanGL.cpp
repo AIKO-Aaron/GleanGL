@@ -2,6 +2,8 @@
 
 #include "../../../../../../Scripts/autogen_cpp.h"
 
+// #define GL_DEBUG
+
 __internalContext Glean::graphics::initGL(__internalWindow window) {
     __internalContext c = Glean::graphics::createGLContext(window);
     
@@ -12,7 +14,7 @@ __internalContext Glean::graphics::initGL(__internalWindow window) {
     const char *vers = (const char*) glGetString(GL_VERSION);
     printf("[GLEAN][INFO] Loaded OpenGL Version: %s\n", vers);
     
-#if defined(_DEBUG) or defined(DEBUG)
+#if defined(GL_DEBUG)
     printf("[GLEAN][DEBUG] OpenGL Extensions: \n");
     int i = 0;
     const unsigned char* name = glGetStringi(GL_EXTENSIONS, i);
