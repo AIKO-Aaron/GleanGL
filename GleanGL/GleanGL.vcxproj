@@ -69,7 +69,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir)src;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\include;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(ProjectDir)src;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\include;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir)src;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\include;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir)src;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\include;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -117,6 +128,17 @@
   <ItemGroup>
     <ClInclude Include="src\events\Event.h" />
     <ClInclude Include="src\events\Mac_Events.mm" />
+    <ClInclude Include="src\graphics\Camera.h" />
+    <ClInclude Include="src\graphics\lighting\Light.h" />
+    <ClInclude Include="src\graphics\lighting\Material.h" />
+    <ClInclude Include="src\graphics\native\Universal\OpenCL\GleanCL.h" />
+    <ClInclude Include="src\graphics\native\Universal\OpenGL\glcorearb.h" />
+    <ClInclude Include="src\graphics\native\Universal\OpenGL\GleanGL.h" />
+    <ClInclude Include="src\graphics\native\Universal\OpenGL\glext.h" />
+    <ClInclude Include="src\graphics\native\Universal\OpenGL\khrplatform.h" />
+    <ClInclude Include="src\graphics\native\Universal\Platform.h" />
+    <ClInclude Include="src\graphics\objects\Mesh.h" />
+    <ClInclude Include="src\graphics\objects\Sphere.h" />
     <ClInclude Include="src\graphics\Shader.h" />
     <ClInclude Include="src\graphics\Universal\OpenGL\glcorearb.h" />
     <ClInclude Include="src\graphics\Universal\OpenGL\GleanGL.h" />
@@ -125,18 +147,26 @@
     <ClInclude Include="src\graphics\Universal\Platform.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
     <ClInclude Include="src\graphics\Window.h" />
+    <ClInclude Include="src\math\GleanMath.h" />
+    <ClInclude Include="src\math\Matrix.h" />
+    <ClInclude Include="src\math\Vector.h" />
     <ClInclude Include="src\util\FileUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\events\Event.cpp" />
     <ClCompile Include="src\events\Win_Events.cpp" />
+    <ClCompile Include="src\graphics\Camera.cpp" />
+    <ClCompile Include="src\graphics\lighting\Light.cpp" />
+    <ClCompile Include="src\graphics\lighting\Material.cpp" />
+    <ClCompile Include="src\graphics\native\Universal\OpenCL\GleanCL.cpp" />
+    <ClCompile Include="src\graphics\native\Universal\OpenGL\GleanGL.cpp" />
+    <ClCompile Include="src\graphics\native\Universal\RendererOpenGL.cpp" />
+    <ClCompile Include="src\graphics\native\Windows\Win_Library.cpp" />
+    <ClCompile Include="src\graphics\native\Windows\Win_Window.cpp" />
+    <ClCompile Include="src\graphics\objects\Mesh.cpp" />
+    <ClCompile Include="src\graphics\objects\Sphere.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
-    <ClCompile Include="src\graphics\Universal\OpenGL\GleanGL.cpp" />
-    <ClCompile Include="src\graphics\Universal\RendererOpenGL.cpp" />
-    <ClCompile Include="src\graphics\Universal\RendererVulkan.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
-    <ClCompile Include="src\graphics\Windows\Win_Library.cpp" />
-    <ClCompile Include="src\graphics\Windows\Win_Window.cpp" />
     <ClCompile Include="src\util\FileUtil.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@
 #include <cmath>
 #include <string>
 
-#define PI 3.14159265358979323
+#define PI 3.14159265358979323f
 
 namespace Glean {
     namespace math {

@@ -5,7 +5,7 @@
 namespace Glean {
     namespace graphics {
         
-#pragma push(pack, 1)
+#pragma pack(push, 1)
         typedef struct {
             float x, y, z, w; // Position
             float r, g, b; // Color
@@ -13,7 +13,7 @@ namespace Glean {
             float a1, a2, a3; // Attenuation
             float _a; // unused
         } lightSource;
-#pragma pop
+#pragma pack(pop)
         
         class Light {
         private:

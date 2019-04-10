@@ -25,7 +25,7 @@ void Glean::graphics::Renderer::render() {
     shader->bind();
     int i = 0;
     for(Light *l : lights) sources[i++] = l->getLightSource();
-    shader->uniform("numLights", i);
+    shader->uniform("numLights", (float) i);
     for(Mesh *m : objects) m->render();
     
 }

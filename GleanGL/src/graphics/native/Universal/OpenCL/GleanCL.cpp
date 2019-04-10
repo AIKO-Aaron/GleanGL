@@ -5,7 +5,7 @@
 
 #define NUM_ELEMENTS 100
 
-static void onError(const char *errinfo, const void *privateInfo, size_t cb, void *userInfo) {
+static void RET_TYPE onError(const char *errinfo, const void *privateInfo, size_t cb, void *userInfo) {
     
 }
 
@@ -34,7 +34,7 @@ void testCL() {
     cl_mem buffer_cl_out = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(float) * NUM_ELEMENTS, NULL, NULL);
 
     float *elmnts = new float[NUM_ELEMENTS];
-    for(int i = 0; i < NUM_ELEMENTS; i++) elmnts[i] = i+1.0;
+    for(int i = 0; i < NUM_ELEMENTS; i++) elmnts[i] = i+1.0f;
     clEnqueueWriteBuffer(queue, buffer_cl_in, CL_TRUE, 0, sizeof(float) * NUM_ELEMENTS, elmnts, NULL, NULL, NULL);
     delete[] elmnts;
     

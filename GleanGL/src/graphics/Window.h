@@ -20,7 +20,8 @@ namespace Glean {
 		private:
 			__internalWindow window;
             bool *keysPressed = new bool[IMPLEMENTED_KEYS];
-            
+			bool mouseCaptured = false;
+
             void loop();
 			void init();
 			bool fetchEvents();
@@ -34,6 +35,7 @@ namespace Glean {
 			Window(const char *title, int width, int height, int x, int y);
             
 			void start();
+			void close();
             
             void captureMouse();
             void uncaptureMouse();

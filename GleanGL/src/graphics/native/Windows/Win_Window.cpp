@@ -1,6 +1,6 @@
 #ifdef _WIN32
 
-#include "../Window.h"
+#include "../../Window.h"
 #include <Windows.h>
 #include <stdio.h>
 
@@ -57,6 +57,11 @@ Glean::graphics::Window::Window(const char *title, int width, int height) {
 		return;
 	}
 
+	POINT mouseLoc;
+	GetCursorPos(&mouseLoc);
+	Glean::events::mouseX = mouseLoc.x;
+	Glean::events::mouseY = mouseLoc.y;
+
 	ShowWindow(window, SW_SHOW);
 	UpdateWindow(window);
 
@@ -87,18 +92,47 @@ bool Glean::graphics::Window::fetchEvents() {
 	if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE | PM_NOYIELD)) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-        
+
         if(msg.message == WM_QUIT) return false;
-        
-        if(msg.message == WM_KEYDOWN) keysPressed[Glean::events::SCANCODE_TO_KEY[evnt.keyCode] % IMPLEMENTED_KEYS] = true;
-        if(msg.message == WM_KEYUP) keysPressed[Glean::events::SCANCODE_TO_KEY[evnt.keyCode] % IMPLEMENTED_KEYS] = false;
+
+        if(msg.message == WM_KEYDOWN) keysPressed[Glean::events::SCANCODE_TO_KEY[msg.wParam] % IMPLEMENTED_KEYS] = true;
+        if(msg.message == WM_KEYUP) keysPressed[Glean::events::SCANCODE_TO_KEY[msg.wParam] % IMPLEMENTED_KEYS] = false;
 
         Glean::events::Event *e = Glean::events::translateEvent(msg);
         if (e) dispatchEvent(e);
 	}
+
+	if (mouseCaptured) { // What a pain
+		RECT rect;
+		GetWindowRect(window, &rect);
+		POINT p;
+		p.x = (rect.left + rect.right) / 2;
+		p.y = (rect.top + rect.bottom) / 2;
+		ScreenToClient(window, &p);
+		Glean::events::mouseX = p.x;
+		Glean::events::mouseY = p.y;
+		SetPhysicalCursorPos((rect.left + rect.right) / 2, (rect.top + rect.bottom) / 2);
+	}
+
 	return true;
 }
 
 void Glean::graphics::Window::start() { loop(); }
+
+void Glean::graphics::Window::close() { DestroyWindow(window); }
+
+void Glean::graphics::Window::captureMouse() { 
+	RECT rect;
+	GetWindowRect(window, &rect);
+	ClipCursor(&rect);
+	ShowCursor(FALSE);
+	mouseCaptured = true;
+}
+
+void Glean::graphics::Window::uncaptureMouse() { 
+	ClipCursor(NULL);
+	ShowCursor(TRUE);
+	mouseCaptured = false;
+}
 
 #endif

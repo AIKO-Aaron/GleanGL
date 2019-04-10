@@ -20,7 +20,7 @@ static float currentTime = 0;
 void handleEvent(Glean::events::Event *e) {
     if(e->type == Glean::events::KEYDOWN) {
         Glean::events::KeyEvent *kEvent = e->asKeyEvent();
-        if(kEvent->isPlatformCtrlDown() && kEvent->key == Glean::events::kQ) exit(0);
+		if (kEvent->isPlatformCtrlDown() && kEvent->key == Glean::events::kQ) window->close(); //exit(0);
         //printf("[SANDBOX][DEBUG] Pressed Key: %c\n", Glean::events::getCharFromKey(kEvent->key));
         // if(kEvent->key == Glean::events::kW) c.move(Glean::math::createVector(0, 0, 0.01));
 	}
@@ -74,8 +74,9 @@ int main(int argc, char **args) {
     window->addEventHandler(handleEvent);
     window->addRenderFunction(render);
     
-    mesh = generateSphere(Glean::math::createVector(0, 0, 3), 1, 100); //new Glean::graphics::Mesh(verticies);
-     
+    //mesh = generateSphere(Glean::math::createVector(0, 0, 3), 1, 100); //new Glean::graphics::Mesh(verticies);
+	mesh = generateSphere(Glean::math::createVector(0, 0, -3), 1, 100); //new Glean::graphics::Mesh(verticies);
+
     shader = Glean::graphics::loadShaderRecursive("assets/shader.vert", "assets/shader.frag");
     
     testCL();

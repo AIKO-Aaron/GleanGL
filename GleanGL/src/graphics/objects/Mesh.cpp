@@ -10,7 +10,7 @@ Glean::graphics::Mesh::Mesh(std::vector<Glean::math::Vector<3>> verticies) {
     
     numVerticies = (GLuint) verticies.size();
     
-    for(int i = 0; i < verticies.size() / 3; i++) {
+    for(int i = 0; i < (int) verticies.size() / 3; i++) {
         Glean::math::Vector<3> p1 = verticies[3 * i + 0] - verticies[3 * i + 1];
         Glean::math::Vector<3> p2 = verticies[3 * i + 0] - verticies[3 * i + 2];
         Glean::math::Vector<3> normal = Glean::math::cross(p1, p2);

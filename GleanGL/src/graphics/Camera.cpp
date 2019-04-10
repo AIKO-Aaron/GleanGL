@@ -10,6 +10,7 @@ void Glean::graphics::Camera::rotate(Glean::math::Vector<3> rotations) {
 }
 
 void Glean::graphics::Camera::rotate(Glean::events::MouseMotionEvent *mEvent, float sensitivity) {
+	printf("Deltas: x: %d, y: %d\n", mEvent->dx, mEvent->dy);
     rotate(Glean::math::createVector((float) mEvent->dy * sensitivity / 100.0f, -(float) mEvent->dx * sensitivity / 100.0f, 0));
 }
 

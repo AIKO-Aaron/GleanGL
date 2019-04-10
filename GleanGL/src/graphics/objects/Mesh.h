@@ -7,13 +7,13 @@
 namespace Glean {
     namespace graphics {
         
-#pragma push(push, 1)
+#pragma pack(push, 1)
         typedef struct {
             float x, y, z;
             float nx, ny, nz;
             float u, v;
         } vertexData;
-#pragma pop
+#pragma pack(pop)
         
         class Mesh {
         private:
