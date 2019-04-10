@@ -40,7 +40,7 @@ FileData Glean::util::readFile(const char *path) {
     return fd;
 }
 
-FileData Glean::util::readWithProcessing(const char *filePath, int depth = 9) {
+FileData Glean::util::readWithProcessing(const char *filePath, int depth) {
     FileData fd = readFile(filePath);
     if(!depth) return fd; // Don't load more than 10 files recursively, exit condition
     

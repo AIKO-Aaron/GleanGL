@@ -22,6 +22,8 @@
 		93A0B67C2252A3B1004B05EF /* Mac_Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B67B2252A3B1004B05EF /* Mac_Window.mm */; };
 		93A0B67E2252AEB8004B05EF /* Mac_Library.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B67D2252AEB8004B05EF /* Mac_Library.mm */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		93A0B684225366F2004B05EF /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B683225366F2004B05EF /* Event.cpp */; };
+		93E5F64A225DCC5800964B1E /* GleanCL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93E5F648225DCC5800964B1E /* GleanCL.cpp */; };
+		93E5F64B225DCC5800964B1E /* GleanCL.h in Headers */ = {isa = PBXBuildFile; fileRef = 93E5F649225DCC5800964B1E /* GleanCL.h */; };
 		93F311F2225C982A0067F76C /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F311F1225C982A0067F76C /* Mesh.cpp */; };
 		93F311F7225CA51C0067F76C /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93F311F5225CA51C0067F76C /* Sphere.cpp */; };
 		93F311F8225CA51C0067F76C /* Sphere.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F311F6225CA51C0067F76C /* Sphere.h */; };
@@ -60,6 +62,8 @@
 		93A0B67B2252A3B1004B05EF /* Mac_Window.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Mac_Window.mm; sourceTree = "<group>"; };
 		93A0B67D2252AEB8004B05EF /* Mac_Library.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Mac_Library.mm; sourceTree = "<group>"; };
 		93A0B683225366F2004B05EF /* Event.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
+		93E5F648225DCC5800964B1E /* GleanCL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GleanCL.cpp; sourceTree = "<group>"; };
+		93E5F649225DCC5800964B1E /* GleanCL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GleanCL.h; sourceTree = "<group>"; };
 		93F311F1225C982A0067F76C /* Mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		93F311F3225C98360067F76C /* Mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
 		93F311F5225CA51C0067F76C /* Sphere.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
@@ -140,9 +144,10 @@
 		93A0B63E2252A2E8004B05EF /* Universal */ = {
 			isa = PBXGroup;
 			children = (
+				93E5F647225DCC4C00964B1E /* OpenCL */,
+				93A0B6422252A2E8004B05EF /* OpenGL */,
 				93A0B6402252A2E8004B05EF /* RendererOpenGL.cpp */,
 				93A0B6412252A2E8004B05EF /* Platform.h */,
-				93A0B6422252A2E8004B05EF /* OpenGL */,
 			);
 			path = Universal;
 			sourceTree = "<group>";
@@ -195,6 +200,15 @@
 				93F36109225488FA004C3282 /* Win_Events.cpp */,
 			);
 			path = events;
+			sourceTree = "<group>";
+		};
+		93E5F647225DCC4C00964B1E /* OpenCL */ = {
+			isa = PBXGroup;
+			children = (
+				93E5F648225DCC5800964B1E /* GleanCL.cpp */,
+				93E5F649225DCC5800964B1E /* GleanCL.h */,
+			);
+			path = OpenCL;
 			sourceTree = "<group>";
 		};
 		93F311F0225C98120067F76C /* objects */ = {
@@ -253,6 +267,7 @@
 				93A0B6512252A2E8004B05EF /* Platform.h in Headers */,
 				93F3611922548DB9004C3282 /* FileUtil.h in Headers */,
 				93A0B6582252A2E8004B05EF /* Renderer.h in Headers */,
+				93E5F64B225DCC5800964B1E /* GleanCL.h in Headers */,
 				93F31201225CD3680067F76C /* Light.h in Headers */,
 				93F3612D22562684004C3282 /* GleanMath.h in Headers */,
 				93A0B6552252A2E8004B05EF /* khrplatform.h in Headers */,
@@ -328,6 +343,7 @@
 				93F311F7225CA51C0067F76C /* Sphere.cpp in Sources */,
 				93F3612A22560DBD004C3282 /* Camera.cpp in Sources */,
 				93A0B6562252A2E8004B05EF /* Window.cpp in Sources */,
+				93E5F64A225DCC5800964B1E /* GleanCL.cpp in Sources */,
 				93A0B684225366F2004B05EF /* Event.cpp in Sources */,
 				93A0B6502252A2E8004B05EF /* RendererOpenGL.cpp in Sources */,
 				93F3611822548DB9004C3282 /* FileUtil.cpp in Sources */,
@@ -461,10 +477,12 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TPDPL7CQS;
 				EXECUTABLE_PREFIX = lib;
 				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/src";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -475,10 +493,12 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TPDPL7CQS;
 				EXECUTABLE_PREFIX = lib;
 				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/src";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

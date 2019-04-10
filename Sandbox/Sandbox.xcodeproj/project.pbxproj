@@ -11,6 +11,7 @@
 		93A0B6752252A35F004B05EF /* libGleanGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A0B6742252A35F004B05EF /* libGleanGL.a */; };
 		93A0B6772252A369004B05EF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A0B6762252A368004B05EF /* OpenGL.framework */; };
 		93A0B6792252A36F004B05EF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A0B6782252A36F004B05EF /* Cocoa.framework */; };
+		93E5F64F225DCE7000964B1E /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93E5F64E225DCE7000964B1E /* OpenCL.framework */; };
 		93F3611E22549159004C3282 /* assets in CopyFiles */ = {isa = PBXBuildFile; fileRef = 93F3611D22549159004C3282 /* assets */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		93A0B6742252A35F004B05EF /* libGleanGL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGleanGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A0B6762252A368004B05EF /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		93A0B6782252A36F004B05EF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		93E5F64E225DCE7000964B1E /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
 		93F3611D22549159004C3282 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93E5F64F225DCE7000964B1E /* OpenCL.framework in Frameworks */,
 				93A0B6792252A36F004B05EF /* Cocoa.framework in Frameworks */,
 				93A0B6772252A369004B05EF /* OpenGL.framework in Frameworks */,
 				93A0B6752252A35F004B05EF /* libGleanGL.a in Frameworks */,
@@ -79,6 +82,7 @@
 		93A0B6732252A35F004B05EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93E5F64E225DCE7000964B1E /* OpenCL.framework */,
 				93A0B6782252A36F004B05EF /* Cocoa.framework */,
 				93A0B6762252A368004B05EF /* OpenGL.framework */,
 				93A0B6742252A35F004B05EF /* libGleanGL.a */,
@@ -263,6 +267,7 @@
 		93A0B66E2252A344004B05EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TPDPL7CQS;
 				GCC_WARN_UNUSED_FUNCTION = NO;
@@ -274,6 +279,7 @@
 		93A0B66F2252A344004B05EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9TPDPL7CQS;
 				GCC_WARN_UNUSED_FUNCTION = NO;

@@ -23,11 +23,7 @@ Glean::graphics::Mesh::Mesh(std::vector<Glean::math::Vector<3>> verticies) {
             data[3 * i + j].nx = normal[0];
             data[3 * i + j].ny = normal[1];
             data[3 * i + j].nz = normal[2];
-            
-            data[3 * i + j].r = 1;
-            data[3 * i + j].g = 0;
-            data[3 * i + j].b = 1;
-            
+                        
             indicies[3 * i + j] = 3 * i + j;
         }
     }
@@ -49,8 +45,8 @@ void Glean::graphics::Mesh::render() {
     glEnableVertexAttribArray(2);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertexData), (void*) 0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertexData), (void*) (sizeof(float) * 6));
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertexData), (void*) (sizeof(float) * 3));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertexData), (void*) (sizeof(float) * 3));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(vertexData), (void*) (sizeof(float) * 6));
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertexBuffers[1]);
     

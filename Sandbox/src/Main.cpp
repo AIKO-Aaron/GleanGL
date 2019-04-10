@@ -6,6 +6,7 @@
 #include "graphics/objects/Sphere.h"
 #include "math/GleanMath.h"
 #include "graphics/Camera.h"
+#include "graphics/native/Universal/OpenCL/GleanCL.h"
 
 using namespace Glean::graphics;
 
@@ -14,6 +15,7 @@ static Glean::graphics::Shader *shader;
 static float angle = 0;
 static Camera c;
 static Glean::graphics::Mesh *mesh;
+static float currentTime = 0;
 
 void handleEvent(Glean::events::Event *e) {
     if(e->type == Glean::events::KEYDOWN) {
@@ -53,6 +55,7 @@ void render(Glean::graphics::Renderer *renderer) {
     shader->bind();
     shader->uniform("angle", angle);
     shader->uniform("camera", c.getTransformation());
+    shader->uniform("time", currentTime += 0.01f);
     
     mesh->render();
     
@@ -71,38 +74,14 @@ int main(int argc, char **args) {
     window->addEventHandler(handleEvent);
     window->addRenderFunction(render);
     
-    std::vector<Glean::math::Vector<3>> verticies;
-    
-    verticies.push_back(Glean::math::createVector(-0.5f, -0.5f, 1));
-    verticies.push_back(Glean::math::createVector( 0.5f, -0.5f, 1));
-    verticies.push_back(Glean::math::createVector( 0.5f,  0.5f, 1));
-
-    verticies.push_back(Glean::math::createVector( 0.5f,  0.5f, 1));
-    verticies.push_back(Glean::math::createVector(-0.5f,  0.5f, 1));
-    verticies.push_back(Glean::math::createVector(-0.5f, -0.5f, 1));
-    
-    verticies.push_back(Glean::math::createVector(1, 0, 1));
-    verticies.push_back(Glean::math::createVector(2, 0, 1));
-    verticies.push_back(Glean::math::createVector(2, 0, 2));
-    
-    verticies.push_back(Glean::math::createVector(2, 0, 2));
-    verticies.push_back(Glean::math::createVector(1, 0, 2));
-    verticies.push_back(Glean::math::createVector(1, 0, 1));
-
-    verticies.push_back(Glean::math::createVector(-1, 2, -1));
-    verticies.push_back(Glean::math::createVector( 1, 2, -1));
-    verticies.push_back(Glean::math::createVector( 1, 2,  1));
-    
-    verticies.push_back(Glean::math::createVector( 1, 2,  1));
-    verticies.push_back(Glean::math::createVector(-1, 2,  1));
-    verticies.push_back(Glean::math::createVector(-1, 2, -1));
-    
-    mesh = generateSphere(Glean::math::createVector(0, 0, 3), 1); //new Glean::graphics::Mesh(verticies);
+    mesh = generateSphere(Glean::math::createVector(0, 0, 3), 1, 100); //new Glean::graphics::Mesh(verticies);
      
     shader = Glean::graphics::loadShaderRecursive("assets/shader.vert", "assets/shader.frag");
     
+    testCL();
+    
 	window->start();
-
+    
 #ifdef _WIN32
 	std::cin.get();
 #endif

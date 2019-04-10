@@ -1,5 +1,6 @@
 #pragma once
 extern PFNGLGETSTRINGPROC glGetString;
+extern PFNGLGETSTRINGIPROC glGetStringi;
 extern PFNGLGETINTEGERVPROC glGetIntegerv;
 extern PFNGLGETERRORPROC glGetError;
 extern PFNGLCLEARCOLORPROC glClearColor;

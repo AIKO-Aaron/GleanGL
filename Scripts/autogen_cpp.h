@@ -1,4 +1,5 @@
 PFNGLGETSTRINGPROC glGetString = nullptr;
+PFNGLGETSTRINGIPROC glGetStringi = nullptr;
 PFNGLGETINTEGERVPROC glGetIntegerv = nullptr;
 PFNGLGETERRORPROC glGetError = nullptr;
 PFNGLCLEARCOLORPROC glClearColor = nullptr;
@@ -37,6 +38,7 @@ PFNGLENABLEPROC glEnable = nullptr;
 
 static void initGLean() {
 	INIT_FUNC(glGetString);
+	INIT_FUNC(glGetStringi);
 	INIT_FUNC(glGetIntegerv);
 	INIT_FUNC(glGetError);
 	INIT_FUNC(glClearColor);

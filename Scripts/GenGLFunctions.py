@@ -1,4 +1,5 @@
 functionsToInit = """glGetString
+glGetStringi
 glGetIntegerv
 glGetError
 glClearColor

@@ -23,7 +23,9 @@ void Glean::graphics::Renderer::swapBuffers() {
 
 void Glean::graphics::Renderer::render() {
     shader->bind();
-    for(Light *l : lights) l->getLightSource();
+    int i = 0;
+    for(Light *l : lights) sources[i++] = l->getLightSource();
+    shader->uniform("numLights", i);
     for(Mesh *m : objects) m->render();
     
 }

@@ -4,6 +4,8 @@
 #include "lighting/Light.h"
 #include "objects/Mesh.h"
 
+#define MAX_LIGHTS 5
+
 namespace Glean {
 	namespace graphics {
 
@@ -14,8 +16,11 @@ namespace Glean {
 
             unsigned int vaoID = 0;
             Glean::graphics::Shader *shader = nullptr;
+            
             std::vector<Glean::graphics::Light*> lights;
             std::vector<Glean::graphics::Mesh*> objects;
+            
+            lightSource *sources = new lightSource[MAX_LIGHTS];
 
 		public:
 			Renderer(__internalWindow window);

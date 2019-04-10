@@ -13,7 +13,7 @@ namespace Glean {
         } FileData;
         
         extern FileData readFile(const char *path);
-        extern FileData readWithProcessing(const char *path, int depth);
+        extern FileData readWithProcessing(const char *path, int depth = 9);
         
     }
 }

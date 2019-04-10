@@ -11,7 +11,6 @@ namespace Glean {
         typedef struct {
             float x, y, z;
             float nx, ny, nz;
-            float r, g, b;
             float u, v;
         } vertexData;
 #pragma pop
