@@ -39,7 +39,8 @@ glGenTextures
 glBindTexture
 glActiveTexture
 glTexParameteri
-glTexImage2D""".split("\n")
+glTexImage2D
+glFlush""".split("\n")
 
 HEADER = "#pragma once\n"
 for f in functionsToInit:

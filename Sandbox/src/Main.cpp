@@ -41,39 +41,6 @@ void handleEvent(Glean::events::Event *e) {
 }
 
 void render(Glean::graphics::Renderer *renderer) {
-    /**renderer->clearColor(0, 0, 0, 1);
-
-    angle += 0.01f;
-    
-    float dx = 0;
-    float dy = 0;
-    float dz = 0;
-    
-    if(window->isKeyPressed(Glean::events::kA)) dx -= 0.1f;
-    if(window->isKeyPressed(Glean::events::kD)) dx += 0.1f;
-    if(window->isKeyPressed(Glean::events::kS)) dz -= 0.1f;
-    if(window->isKeyPressed(Glean::events::kW)) dz += 0.1f;
-    if(window->isKeyPressed(Glean::events::kSHIFT)) dy -= 0.1f;
-    if(window->isKeyPressed(Glean::events::kSPACE)) dy += 0.1f;
-
-    Glean::math::Vector<4> moveVec = Glean::math::createVector(dx, 0, dz, 0);
-    Glean::math::Vector<4> m = c.getTransformation().inverse() * moveVec;
-    m[1] = -dy;
-    c.move(m);
-    
-    shader->bind();
-    shader->uniform("angle", angle);
-    shader->uniform("camera", c.getTransformation());
-    shader->uniform("time", currentTime += 0.01f);
-    
-    mesh->render();
-    
-    GLuint err;
-    if((err = glGetError()) != GL_NO_ERROR) {
-        printf("[SANDBODX][ERROR] GL-Error has occured: %d\n", err);
-        exit(0);
-    }*/
-
     renderer->clearColor(0, 0, 0, 1);
     
     unsigned char *img = testRay(cpos, cangles);
@@ -137,7 +104,7 @@ int main(int argc, char **args) {
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffers[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 5 * 4, new float[5 * 4] {
           -1,  1, 0, 0, 0,
-           1,  1, 0.1, 1, 0,
+           1,  1, 0, 1, 0,
            1, -1, 0, 1, 1,
           -1, -1, 0, 0, 1
     }, GL_STATIC_DRAW);

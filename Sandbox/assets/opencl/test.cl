@@ -17,8 +17,9 @@ kernel void traceTest(float4 position, global float *dataIn, global float4 *colo
 #define MIN_STEP 0.02f
 #define PI 3.14159265358979323f
 #define FOV (PI / 2.0f)
-#define MAX_DIST 100.0f
+#define MAX_DIST 20.0f
 
+#define min(a,b) ((a)<(b)?(a):(b))
 #define max(a,b) ((a)>(b)?(a):(b))
 #define abs(a) ((a)>=0?(a):-(a))
 
@@ -27,9 +28,9 @@ float minDist(float4 position) {
 
 	// For each sphere, triangle etc, calculate min distance
     float4 spheres[3];
-    spheres[0] = (float4)(0, 0, 3, 1);
-    spheres[1] = (float4)(4, 0, 3, 1);
-    spheres[2] = (float4)(4, 4, 3, 2);
+    spheres[0] = (float4)(0, 0, 0, 1);
+    spheres[1] = (float4)(4, 0, 0, 1);
+    spheres[2] = (float4)(4, 4, 0, 2);
     
     for(int i = 0; i < 3; i++) {
         float d1 = distance(position, (float4)(spheres[i].x, spheres[i].y, spheres[i].z, 1)) - spheres[i].w;
@@ -54,7 +55,11 @@ float rayWalk(float4 direction, float4 position) {
 kernel void getOutput(float4 cameraPos, float2 cameraAngle, float2 screenSize, global uchar4 *colorOut) {
 	size_t x = get_global_id(0); // The coordinates on screen...
 	size_t y = get_global_id(1);
-		
+	
+    cameraAngle.y = min(cameraAngle.y, PI / 2.0f);
+    cameraAngle.y = max(cameraAngle.y, -PI / 2.0f);
+
+    
 	float phi = ((float) x / screenSize.x - 0.5f) * FOV + cameraAngle.x;
     float theta = ((float) y / screenSize.y - 0.5f) * FOV + cameraAngle.y;
     theta *= screenSize.y / screenSize.x;
@@ -64,10 +69,17 @@ kernel void getOutput(float4 cameraPos, float2 cameraAngle, float2 screenSize, g
                               sin(theta),
                               cos(theta) * cos(phi), 0);
 
-    cameraPos.y *= screenSize.y / screenSize.x;
+    //cameraPos.y *= screenSize.y / screenSize.x;
 	float wasHit = rayWalk(rotated, cameraPos);
-
-    uchar brightness = 255 - (uchar) (wasHit / MAX_DIST * 255.0f);
-	if (wasHit) colorOut[x + y * (int) screenSize.x] = (uchar4) (255, brightness, brightness, brightness);
+    
+    // Intersection point is cameraPos + wasHit * rotated;
+    float4 intersectionPoint = cameraPos + wasHit * rotated;
+    float brightness = 1.0f - wasHit / MAX_DIST;
+    
+    uchar r = intersectionPoint.x > 0 ? 255 : 0;
+    uchar g = intersectionPoint.y > 0 ? 255 : 0;
+    uchar b = intersectionPoint.z > 0 ? 255 : 0;
+    
+	if (wasHit) colorOut[x + y * (int) screenSize.x] = (uchar4) (255, (uchar) (brightness * r), (uchar) (brightness * g), (uchar) (brightness * b));
 	else colorOut[x + y * (int) screenSize.x] = (uchar4) (255, 0, 0, 0);
 }

@@ -40,6 +40,7 @@ PFNGLBINDTEXTUREPROC glBindTexture = nullptr;
 PFNGLACTIVETEXTUREPROC glActiveTexture = nullptr;
 PFNGLTEXPARAMETERIPROC glTexParameteri = nullptr;
 PFNGLTEXIMAGE2DPROC glTexImage2D = nullptr;
+PFNGLFLUSHPROC glFlush = nullptr;
 
 static void initGLean() {
 	INIT_FUNC(glGetString);
@@ -84,4 +85,5 @@ static void initGLean() {
 	INIT_FUNC(glActiveTexture);
 	INIT_FUNC(glTexParameteri);
 	INIT_FUNC(glTexImage2D);
+	INIT_FUNC(glFlush);
 }

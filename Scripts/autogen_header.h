@@ -41,3 +41,4 @@ extern PFNGLBINDTEXTUREPROC glBindTexture;
 extern PFNGLACTIVETEXTUREPROC glActiveTexture;
 extern PFNGLTEXPARAMETERIPROC glTexParameteri;
 extern PFNGLTEXIMAGE2DPROC glTexImage2D;
+extern PFNGLFLUSHPROC glFlush;

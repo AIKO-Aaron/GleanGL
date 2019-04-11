@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #include "../Universal/Platform.h"
 #include <dlfcn.h>
+#include "../Universal/OpenGL/GleanGL.h"
 
 __internalLibrary Glean::library::openLibrary(const char *path) {
     return dlopen(path, RTLD_LAZY);
@@ -48,4 +49,5 @@ __internalContext Glean::graphics::createGLContext(__internalWindow iWind) {
 void Glean::graphics::swapBuffers(__internalContext context) {
     NSOpenGLContext *c = (__bridge NSOpenGLContext*) context;
     [c flushBuffer];
+    glFlush();
 }
