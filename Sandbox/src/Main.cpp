@@ -32,6 +32,10 @@ void handleEvent(Glean::events::Event *e) {
 	else if (e->type == Glean::events::MOUSEMOTION) {
 		Glean::events::MouseMotionEvent *mEvent = e->asMouseMotionEvent();
         c.rotate(mEvent);
+        cangles += Glean::math::createVector((float) mEvent->dx / 100.0f, (float) mEvent->dy / 100.0f);
+        if(cangles[1] < -PI / 2.0f) cangles[1] = -PI / 2.0f + 0.00001f;
+        if(cangles[1] > PI / 2.0f) cangles[1] = PI / 2.0f - 0.00001f;
+
 		//printf("[SANDBOX][DEBUG] Mouse position on screen: %d|%d\n", mEvent->xPos, mEvent->yPos);
 	}
 }
@@ -74,20 +78,20 @@ void render(Glean::graphics::Renderer *renderer) {
     
     unsigned char *img = testRay(cpos, cangles);
     //cangles[1] += PI / 1000.0f;
-    cangles[0] -= PI / 1000.0f;
+    //cangles[0] -= PI / 1000.0f;
     
     float dx = 0;
     float dy = 0;
     float dz = 0;
     
-    if(window->isKeyPressed(Glean::events::kA)) dx -= 0.01f;
-    if(window->isKeyPressed(Glean::events::kD)) dx += 0.01f;
-    if(window->isKeyPressed(Glean::events::kS)) dz -= 0.01f;
-    if(window->isKeyPressed(Glean::events::kW)) dz += 0.01f;
-    if(window->isKeyPressed(Glean::events::kSHIFT)) dy -= 0.01f;
-    if(window->isKeyPressed(Glean::events::kSPACE)) dy += 0.01f;
+    if(window->isKeyPressed(Glean::events::kA)) dx += 0.1f;
+    if(window->isKeyPressed(Glean::events::kD)) dx -= 0.1f;
+    if(window->isKeyPressed(Glean::events::kS)) dz += 0.1f;
+    if(window->isKeyPressed(Glean::events::kW)) dz -= 0.1f;
+    if(window->isKeyPressed(Glean::events::kSHIFT)) dy -= 0.1f;
+    if(window->isKeyPressed(Glean::events::kSPACE)) dy += 0.1f;
     
-    Glean::math::Vector<4> moveVec = Glean::math::createVector(dx, dy, dz, 0);
+    Glean::math::Vector<4> moveVec = Glean::math::createVector(dx * cos(cangles[0]) + dz * sin(cangles[0]), dy, -dx * sin(cangles[0]) + dz * cos(cangles[0]), 0);
     cpos -= moveVec;
     
     glActiveTexture(GL_TEXTURE0);
@@ -119,7 +123,7 @@ void render(Glean::graphics::Renderer *renderer) {
 
 int main(int argc, char **args) {    
 	window = new Window("Hello World", 960, 540);
-    //window->captureMouse();
+    window->captureMouse();
     window->addEventHandler(handleEvent);
     window->addRenderFunction(render);
     
