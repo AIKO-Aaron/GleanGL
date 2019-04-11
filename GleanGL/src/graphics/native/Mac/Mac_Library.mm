@@ -37,6 +37,7 @@ __internalContext Glean::graphics::createGLContext(__internalWindow iWind) {
     };
     
     NSOpenGLPixelFormat *pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes: attributes];
+    if(!pixelFormat) printf("[GLEAN][ERROR] Couldn't create PixelFormat...\n");
     NSOpenGLContext *context = [[NSOpenGLContext alloc] initWithFormat: pixelFormat shareContext: NULL];
     if(!context) printf("[GLEAN][ERROR] Couldn't create OpenGL context on MacOS\n");
     
