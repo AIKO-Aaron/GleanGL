@@ -19,4 +19,4 @@
 // extern void testCL();
 
 extern void initCL();
-extern void testRay(Glean::math::Vector<4> cameraPos, Glean::math::Vector<2> cameraAngles);
+extern unsigned char *testRay(Glean::math::Vector<4> cameraPos, Glean::math::Vector<2> cameraAngles);

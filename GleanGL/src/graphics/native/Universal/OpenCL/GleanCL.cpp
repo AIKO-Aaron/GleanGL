@@ -110,10 +110,10 @@ void testCL() {
 #endif
 }
 
-static float* screenSize = new float[2]{ 100, 100 };
+static float* screenSize = new float[2]{ 960, 540 };
 static size_t* screenSizet = new size_t[2]{ (size_t)screenSize[0], (size_t) screenSize[1] };
 
-static float* colorData = new float[4 * screenSize[0] * screenSize[1]];
+static unsigned char* colorData = new unsigned char[4 * screenSize[0] * screenSize[1]];
 
 cl_device_id device;
 cl_context context;
@@ -139,7 +139,7 @@ void initCL() {
 
 
 	Glean::util::FileData d = Glean::util::readWithProcessing("assets/opencl/test.cl");
-	printf("[GLEAN][DEBUG] Compiling CL-Source: \n%s\n", d.data);
+	//printf("[GLEAN][DEBUG] Compiling CL-Source: \n%s\n", d.data);
 	program = clCreateProgramWithSource(context, 1, (const char**)&d.data, NULL, NULL);
 	cl_int buildErr = clBuildProgram(program, 1, &device, "", NULL, NULL);
 
@@ -156,34 +156,20 @@ void initCL() {
 
 	queue = clCreateCommandQueue(context, device, 0, NULL);
 
-	colorOut = clCreateBuffer(context, CL_MEM_READ_WRITE, screenSize[0] * screenSize[1] * sizeof(cl_float4), NULL, NULL);
+	colorOut = clCreateBuffer(context, CL_MEM_READ_WRITE, screenSize[0] * screenSize[1] * sizeof(cl_uchar4), NULL, NULL);
 	getOutput = clCreateKernel(program, "getOutput", NULL);
 
-	clSetKernelArg(getOutput, 2, sizeof(cl_float2), screenSize);
-	clSetKernelArg(getOutput, 3, sizeof(colorOut), &colorOut);
+	cl_int err = clSetKernelArg(getOutput, 2, sizeof(cl_float2), screenSize);
+	err = clSetKernelArg(getOutput, 3, sizeof(colorOut), &colorOut);
 }
 
-void testRay(Glean::math::Vector<4> cameraPos, Glean::math::Vector<2> cameraAngles) {
-	clSetKernelArg(getOutput, 0, sizeof(cl_float4), &cameraPos[0]);
-	clSetKernelArg(getOutput, 1, sizeof(cl_float2), &cameraAngles[0]);
+unsigned char* testRay(Glean::math::Vector<4> cameraPos, Glean::math::Vector<2> cameraAngles) {
+	cl_int err = clSetKernelArg(getOutput, 0, sizeof(cl_float4), &cameraPos[0]);
+	err = clSetKernelArg(getOutput, 1, sizeof(cl_float2), &cameraAngles[0]);
 
-	clEnqueueNDRangeKernel(queue, getOutput, 2, NULL, screenSizet, NULL, NULL, NULL, &evt);
-	clWaitForEvents(1, &evt);
+	err = clEnqueueNDRangeKernel(queue, getOutput, 2, NULL, screenSizet, NULL, NULL, NULL, &evt);
+    clWaitForEvents(1, &evt);
 
-	clEnqueueReadBuffer(queue, colorOut, CL_TRUE, 0, sizeof(cl_float4) * screenSize[0] * screenSize[1], colorData, NULL, NULL, NULL);
-
-	std::string output;
-	bool toPrint = false;
-	for (int i = 0; i < screenSize[1]; i++) {
-		for (int j = 0; j < screenSize[0]; j++) {
-			if (colorData[(i * (int)screenSize[0] + j) * 4]) {
-				output.append("1 ");
-				toPrint = true;
-			}
-			else output.append("0 ");
-		}
-		output.append("\n");
-	}
-	output.append("\n");
-	if(toPrint) printf("%s", output.data());
+	clEnqueueReadBuffer(queue, colorOut, CL_TRUE, 0, sizeof(cl_uchar4) * screenSize[0] * screenSize[1], colorData, NULL, NULL, NULL);
+    return colorData;
 }

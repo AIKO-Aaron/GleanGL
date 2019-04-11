@@ -20,6 +20,8 @@ namespace Glean {
             inline void uniform(const char *name, float v1, float v2) { glUniform2f(glGetUniformLocation(shaderID, name), v1, v2); }
             inline void uniform(const char *name, float v1, float v2, float v3) { glUniform3f(glGetUniformLocation(shaderID, name), v1, v2, v3); }
             inline void uniform(const char *name, float v1, float v2, float v3, float v4) { glUniform4f(glGetUniformLocation(shaderID, name), v1, v2, v3, v4); }
+
+            inline void uniformi(const char *name, int value) { glUniform1i(glGetUniformLocation(shaderID, name), value); }
             
             inline void uniform(const char *name, Glean::math::Vector<2> v) { glUniform2f(glGetUniformLocation(shaderID, name), v[0], v[1]); }
             inline void uniform(const char *name, Glean::math::Vector<3> v) { glUniform3f(glGetUniformLocation(shaderID, name), v[0], v[1], v[2]); }

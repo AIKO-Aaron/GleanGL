@@ -35,6 +35,11 @@ PFNGLUNIFORM4FVPROC glUniform4fv = nullptr;
 PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv = nullptr;
 PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation = nullptr;
 PFNGLENABLEPROC glEnable = nullptr;
+PFNGLGENTEXTURESPROC glGenTextures = nullptr;
+PFNGLBINDTEXTUREPROC glBindTexture = nullptr;
+PFNGLACTIVETEXTUREPROC glActiveTexture = nullptr;
+PFNGLTEXPARAMETERIPROC glTexParameteri = nullptr;
+PFNGLTEXIMAGE2DPROC glTexImage2D = nullptr;
 
 static void initGLean() {
 	INIT_FUNC(glGetString);
@@ -74,4 +79,9 @@ static void initGLean() {
 	INIT_FUNC(glUniformMatrix4fv);
 	INIT_FUNC(glGetUniformLocation);
 	INIT_FUNC(glEnable);
+	INIT_FUNC(glGenTextures);
+	INIT_FUNC(glBindTexture);
+	INIT_FUNC(glActiveTexture);
+	INIT_FUNC(glTexParameteri);
+	INIT_FUNC(glTexImage2D);
 }

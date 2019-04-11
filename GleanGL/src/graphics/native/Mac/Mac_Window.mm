@@ -115,11 +115,14 @@ void Glean::graphics::Window::captureMouse() {
     [NSCursor hide];
     //CGDisplayMoveCursorToPoint(kCGDirectMainDisplay, CGPointZero); // If above
     CGAssociateMouseAndMouseCursorPosition(NO); // Mouse is not cursor
+    mouseCaptured = true;
 }
 
 void Glean::graphics::Window::uncaptureMouse() {
     [NSCursor unhide];
     CGAssociateMouseAndMouseCursorPosition(YES);
+    mouseCaptured = false;
 }
 
+void Glean::graphics::Window::close() { [NSApp stop: nil]; }
 #endif

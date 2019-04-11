@@ -34,7 +34,12 @@ glUniform4i
 glUniform4fv
 glUniformMatrix4fv
 glGetUniformLocation
-glEnable""".split("\n")
+glEnable
+glGenTextures
+glBindTexture
+glActiveTexture
+glTexParameteri
+glTexImage2D""".split("\n")
 
 HEADER = "#pragma once\n"
 for f in functionsToInit:
