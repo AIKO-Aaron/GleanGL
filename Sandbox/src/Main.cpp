@@ -33,8 +33,8 @@ void handleEvent(Glean::events::Event *e) {
 		Glean::events::MouseMotionEvent *mEvent = e->asMouseMotionEvent();
         c.rotate(mEvent);
         cangles += Glean::math::createVector((float) mEvent->dx / 100.0f, (float) mEvent->dy / 100.0f);
-        if(cangles[1] < -PI / 2.0f) cangles[1] = -PI / 2.0f + 0.00001f;
-        if(cangles[1] > PI / 2.0f) cangles[1] = PI / 2.0f - 0.00001f;
+        if(cangles[1] < -PI / 2.0f) cangles[1] = -PI / 2.0f;
+        if(cangles[1] > PI / 2.0f) cangles[1] = PI / 2.0f;
 
 		//printf("[SANDBOX][DEBUG] Mouse position on screen: %d|%d\n", mEvent->xPos, mEvent->yPos);
 	}

@@ -24,7 +24,7 @@ void* Glean::library::getGLFunction(const char *name) {
 }
 
 __internalContext Glean::graphics::createGLContext(__internalWindow iWind) {
-    NSWindow *window = (__bridge NSWindow*) iWind;
+    NSWindow *window = (NSWindow*) iWind;
     
     NSOpenGLPixelFormatAttribute attributes[] = {
         NSOpenGLPFADoubleBuffer,
@@ -43,12 +43,12 @@ __internalContext Glean::graphics::createGLContext(__internalWindow iWind) {
     
     [context setView: [window contentView]];
     [context makeCurrentContext];
-    
-    return (__bridge __internalContext) context;
+    [context retain];
+        
+    return (__internalContext) context;
 }
 
 void Glean::graphics::swapBuffers(__internalContext context) {
-    NSOpenGLContext *c = (__bridge NSOpenGLContext*) context;
+    NSOpenGLContext *c = (NSOpenGLContext*) context;
     [c flushBuffer];
-    glFlush();
 }

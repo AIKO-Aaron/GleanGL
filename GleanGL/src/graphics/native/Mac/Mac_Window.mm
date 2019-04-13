@@ -67,7 +67,7 @@ Glean::graphics::Window::Window(const char *title, int width, int height) {
     
     NSRect windowRect = NSMakeRect((mainScreen.frame.size.width - width) / 2.0, (mainScreen.frame.size.height - height) / 2.0, (double) width, (double) height);
     NSWindow *w = [[__AWindow alloc] initWithContentRect:windowRect styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable backing:NSBackingStoreBuffered defer: NO screen:mainScreen];
-    window = (__bridge __internalWindow) w;
+    window = (__bridge_retained __internalWindow) w;
     
     [w setTitle: [NSString stringWithUTF8String:title]];
     [w setReleasedWhenClosed: NO];
