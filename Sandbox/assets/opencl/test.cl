@@ -20,7 +20,6 @@ kernel void traceTest(float4 position, global float *dataIn, global float4 *colo
 #define MAX_DIST (200.0f)
 
 #define MAX_REFL_DIST (8.0f)
-#define MAX_REFL_REFL_DIST (2.0f)
 #define REFLECT_FACTOR (0.4f)
 
 #define min(a,b) ((a)<(b)?(a):(b))
@@ -30,7 +29,8 @@ kernel void traceTest(float4 position, global float *dataIn, global float4 *colo
 typedef enum {
     SPHERE,
     PLANE,
-	CUBE
+	CUBE,
+	LIGHT_SPHERE
 } objectType;
 
 typedef struct {
@@ -132,6 +132,21 @@ float3 reflect(float3 direction, float3 normal) { // Reflect a ray off a (tangen
     return newPoint;
 }
 
+float3 refract(float3 direction, float3 normal) {
+	float3 d = normalize(direction);
+    float3 n = normalize(normal);
+	float3 n2 = cross(cross(d, n), n);
+
+	float3 projectionOnNormal = n2 * dot(d, n2); // length == sin(alpha)
+	float sinBeta = length(projectionOnNormal) * 1.5f;
+	if(sinBeta < -1 || sinBeta > 1) return (float3)(0, 0, 0);
+
+	float beta = asin(sinBeta);
+	float3 v = d + normalize(projectionOnNormal) * sinBeta;
+
+	return v;
+}
+
 objectIntersection castRay(float4 position, float4 dir) {
 	float mindist = MAX_DIST;
 
@@ -152,33 +167,47 @@ objectIntersection castRay(float4 position, float4 dir) {
         if(d1 < mindist) {
             mindist = d1;
             intersection.obj.type = SPHERE;
-            intersection.obj.color = i == 0 ? (float4)(1, 0, 1, 1) : i == 1 ? (float4)(1, 0, 0, 1) : i == 2 ? (float4)(0, 0, 1, 1) : (float4)(1, 1, 1, 1);
+            intersection.obj.color = i == 0 ? (float4)(1, 0, 1, 0) : i == 1 ? (float4)(1, 0, 0, 0) : i == 2 ? (float4)(0, 0, 1, 0) : (float4)(1, 1, 1, 0);
             intersection.wasHit = true;
             intersection.normal = (float4)((d1 * dir + position - spheres[i]).xyz, 0);
         }
     }
     
+
+	// Planes
     float3 planeNormal = (float3)(0, 1, 0);
     float3 planePoint = (float3)(0, 2, 0);
     float d1 = calculateIntersectionWithPlane(planeNormal, planePoint, position, dir);
     if(d1 < mindist) {
         mindist = d1;
         intersection.obj.type = PLANE;
-        intersection.obj.color = (float4) (0.8, 0.5, 0.5, 1); // Color of plane
+        intersection.obj.color = (float4) (0.8, 0.5, 0.5, 0); // Color of plane
         intersection.wasHit = true;
         intersection.normal = (float4)(planeNormal, 0);
     }
 
+
+	// Cubes
 	float3 cubePos = (float3)(0, -2, 1);
 	float3 cubeSize = (float3)(4, 1, 1);
 	float4 dPoint = calculateIntersectionWithCube(cubePos, cubeSize, position, dir);
     if(dPoint.x < mindist) {
         mindist = dPoint.x;
         intersection.obj.type = CUBE;
-        intersection.obj.color = (float4) (1, 1, 1, 1); // Color of plane
+        intersection.obj.color = (float4) (1, 1, 1, 0); // Color of cube
         intersection.wasHit = true;
         intersection.normal = (float4)(dPoint.yzw, 0);
     }
+
+	// Light sources (spheres)
+	float l1 = calculateIntersectionWithSphere((float3)(0, -5, 0), 0.1, position, dir);
+	if(l1 < mindist) {
+		mindist = l1;
+		intersection.obj.type = LIGHT_SPHERE;
+		intersection.obj.color = (float4)(0, 0, 0, 1);
+		intersection.wasHit = true;
+        intersection.normal = (float4)((l1 * dir + position).xyz - (float3)(0, -5, 0), 0);
+	}
 
     float t = max(0.0f, mindist);
     intersection.distance = t;
@@ -187,27 +216,42 @@ objectIntersection castRay(float4 position, float4 dir) {
 	return intersection;
 }
 
-objectIntersection castRayWithReflections(float4 position, float4 dir) {
+objectIntersection castRayWithMultipleReflections(float4 position, float4 dir, int numReflections) {
     objectIntersection intersection = castRay(position, dir); // normal ray
-    
-    float4 reflected = (float4)(reflect(dir.xyz, intersection.normal.xyz), 0);
-    objectIntersection reflection = castRay(intersection.position + reflected, reflected); // reflection
-    
-    if(reflection.wasHit && reflection.distance < MAX_REFL_DIST) {
-        float4 reflected2 = (float4)(reflect(reflected.xyz, reflection.normal.xyz), 0);
-        objectIntersection reflection2 = castRay(reflection.position + reflected2, reflected2); // reflection
-        // reflection2.wasHit = false; // Disable this line to enable reflections in reflections
-        if(reflection2.wasHit && reflection2.distance < MAX_REFL_REFL_DIST) {
-            float amountOfReflCol = (1.0f - reflection.distance / MAX_REFL_DIST) * REFLECT_FACTOR;
-            float amountOfReflCol2 = (1.0f - reflection2.distance / MAX_REFL_DIST) * REFLECT_FACTOR * REFLECT_FACTOR;
-            intersection.obj.color = (1.0f - amountOfReflCol - amountOfReflCol2) * intersection.obj.color + amountOfReflCol2 * reflection2.obj.color + amountOfReflCol * reflection.obj.color;
-        } else {
-            float amountOfReflCol = (1.0f - reflection.distance / MAX_REFL_DIST) * REFLECT_FACTOR;
-            intersection.obj.color = (1.0f - amountOfReflCol) * intersection.obj.color + amountOfReflCol * reflection.obj.color;
-        }
-    }
-    
-    return intersection;
+
+	float4 lastNormal = intersection.normal;
+	float4 lastPos = intersection.position;
+	float4 lastDir = dir;
+
+	float factor = REFLECT_FACTOR;
+	for(int i = 0; i < numReflections; i++) {
+		float4 reflectedRay = (float4)(reflect(lastDir.xyz, lastNormal.xyz), 0);
+		objectIntersection reflection = castRay(lastPos + reflectedRay, reflectedRay); // reflection
+
+		if(reflection.distance >= MAX_REFL_DIST) break;
+
+		float amountOfNewCol = factor * (1.0f - reflection.distance / MAX_REFL_DIST);
+		intersection.obj.color = (1.0f - amountOfNewCol) * intersection.obj.color + amountOfNewCol * reflection.obj.color;
+
+		// Set stuff up for next iteration
+		factor *= REFLECT_FACTOR;
+		lastDir = reflectedRay; // This is the new ray
+		lastPos = reflection.position; // The new start position is the intersection point
+		lastNormal = reflection.normal; // The new Normal is the normal of the reflection point
+	}
+
+	/**
+	if(intersection.obj.type == SPHERE) {
+		float4 refractedRay = (float4) (refract(lastDir.xyz, lastNormal.xyz), 0);
+		objectIntersection outPoint = castRay(lastPos + refractedRay, refractedRay); // refraction
+
+		float4 refractedRay2 = (float4) (refract(refractedRay.xyz, outPoint.normal.xyz), 0);
+		objectIntersection refraction = castRay(outPoint.position + refractedRay2, refractedRay2); // refraction
+		intersection.obj.color = refraction.obj.color;
+	}*/
+
+
+	return intersection;
 }
 
 #define ANTI_ALIAS_SAMPLES 5
@@ -236,9 +280,11 @@ kernel void getOutput(float4 cameraPos, float2 cameraAngle, float2 screenSize, g
                                       cos(theta) * cos(phi), 0);
             
             
-            objectIntersection intersection = castRayWithReflections(cameraPos, rotated);
+            //objectIntersection intersection = castRayWithReflections(cameraPos, rotated);
+            objectIntersection intersection = castRayWithMultipleReflections(cameraPos, rotated, 5);
             
-            float brightness = intersection.wasHit ? (1.0f - intersection.distance / MAX_DIST) : 0.0f;
+			float brightness = intersection.wasHit ? (1.0f - intersection.distance / MAX_DIST) : 0.0f;
+			brightness *= (intersection.obj.color.w + 0.2f);
             totalBrightness += brightness;
             
             r += (intersection.obj.color.x * brightness);
