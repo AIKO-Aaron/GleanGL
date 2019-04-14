@@ -14,13 +14,14 @@ kernel void traceTest(float4 position, global float *dataIn, global float4 *colo
 // Adapted from ProjectRaycasting...
 // #####################################
 
-#define MIN_STEP 0.02f
-#define PI 3.14159265358979323f
+#define MIN_STEP (0.02f)
+#define PI (3.14159265358979323f)
 #define FOV (PI / 4.0f)
-#define MAX_DIST 200.0f
+#define MAX_DIST (200.0f)
 
-#define MAX_REFL_DIST 8.0f
-#define MAX_REFL_REFL_DIST 4.0f
+#define MAX_REFL_DIST (8.0f)
+#define MAX_REFL_REFL_DIST (2.0f)
+#define REFLECT_FACTOR (0.4f)
 
 #define min(a,b) ((a)<(b)?(a):(b))
 #define max(a,b) ((a)>(b)?(a):(b))
@@ -28,7 +29,8 @@ kernel void traceTest(float4 position, global float *dataIn, global float4 *colo
 
 typedef enum {
     SPHERE,
-    PLANE
+    PLANE,
+	CUBE
 } objectType;
 
 typedef struct {
@@ -72,28 +74,78 @@ float calculateIntersectionWithPlane(float3 normal, float3 pointOnSphere, float4
     return min(t, MAX_DIST);
 }
 
+
+#define IN_RANGE(a) ((a)>0?(min(a, MAX_DIST)):MAX_DIST)
+
+#define HITS(p, cp, cs) ((p).x >= (cp).x && (p).x <= (cp).x + (cs).x && (p).y >= (cp).y && (p).y <= (cp).y + (cs).y && (p).z >= (cp).z && (p).z <= (cp).z + (cs).z)
+
+float4 calculateIntersectionWithCube(float3 cubePos, float3 cubeSize, float4 p, float4 v) {
+	float t1 = IN_RANGE((cubePos.x - p.x) / v.x);
+	float t2 = IN_RANGE((cubePos.x + cubeSize.x - p.x) / v.x);
+	float t3 = IN_RANGE((cubePos.y - p.y) / v.y);
+	float t4 = IN_RANGE((cubePos.y + cubeSize.y - p.y) / v.y);
+	float t5 = IN_RANGE((cubePos.z - p.z) / v.z);
+	float t6 = IN_RANGE((cubePos.z + cubeSize.z - p.z) / v.z);
+
+	if(!HITS(p + (t1+0.01f) * v, cubePos, cubeSize)) t1 = MAX_DIST;
+	if(!HITS(p + (t2+0.01f) * v, cubePos, cubeSize)) t2 = MAX_DIST;
+	if(!HITS(p + (t3+0.01f) * v, cubePos, cubeSize)) t3 = MAX_DIST;
+	if(!HITS(p + (t4+0.01f) * v, cubePos, cubeSize)) t4 = MAX_DIST;
+	if(!HITS(p + (t5+0.01f) * v, cubePos, cubeSize)) t5 = MAX_DIST;
+	if(!HITS(p + (t6+0.01f) * v, cubePos, cubeSize)) t6 = MAX_DIST;
+
+	float minVal = t1;
+	float3 normalVec = (float3)(-1, 0, 0);
+
+	if(t2 < minVal) {
+		minVal = t2;
+		normalVec = (float3)(1, 0, 0);
+	}
+	if(t3 < minVal) {
+		minVal = t3;
+		normalVec = (float3)(0, -1, 0);
+	}
+	if(t4 < minVal) {
+		minVal = t4;
+		normalVec = (float3)(0, 1, 0);
+	}
+	if(t5 < minVal) {
+		minVal = t5;
+		normalVec = (float3)(0, 0, -1);
+	}
+	if(t6 < minVal) {
+		minVal = t6;
+		normalVec = (float3)(0, 0, 1);
+	}
+
+	return (float4)(minVal, normalVec);
+}
+
 float3 reflect(float3 direction, float3 normal) { // Reflect a ray off a (tangent-) plane with normal
     float3 d = normalize(direction);
     float3 n = normalize(normal);
     
     float3 projectionOnNormal = n * dot(d, n);
+	//if(length(projectionOnNormal) < 1) projectionOnNormal = (d-n) / 2.0f;
+	//if(length(projectionOnNormal) < 1) projectionOnNormal = normalize(projectionOnNormal);
     float3 newPoint = d - 2.0f * projectionOnNormal;
     return newPoint;
 }
 
 objectIntersection castRay(float4 position, float4 dir) {
-	float mindist = MAX_DIST + 1.0f;
+	float mindist = MAX_DIST;
 
     objectIntersection intersection;
     intersection.wasHit = false;
-    
-#define NUM_SPHERES 4
+    intersection.obj.color = (float4)(1, 0, 0, 0);
+
+#define NUM_SPHERES 3
 	// For each sphere, triangle etc, calculate min distance
     float4 spheres[NUM_SPHERES];
     spheres[0] = (float4)(0, 0, 0, 1);
     spheres[1] = (float4)(4, 0, 0, 1);
     spheres[2] = (float4)(4, -4, 0, 1);
-    spheres[3] = (float4)(4, 0, 5, 2);
+    //spheres[3] = (float4)(4, 0, 5, 2);
 
     for(int i = 0; i < NUM_SPHERES; i++) {
         float d1 = calculateIntersectionWithSphere(spheres[i].xyz, spheres[i].w, position, dir);
@@ -117,6 +169,17 @@ objectIntersection castRay(float4 position, float4 dir) {
         intersection.normal = (float4)(planeNormal, 0);
     }
 
+	float3 cubePos = (float3)(0, -2, 1);
+	float3 cubeSize = (float3)(4, 1, 1);
+	float4 dPoint = calculateIntersectionWithCube(cubePos, cubeSize, position, dir);
+    if(dPoint.x < mindist) {
+        mindist = dPoint.x;
+        intersection.obj.type = CUBE;
+        intersection.obj.color = (float4) (1, 1, 1, 1); // Color of plane
+        intersection.wasHit = true;
+        intersection.normal = (float4)(dPoint.yzw, 0);
+    }
+
     float t = max(0.0f, mindist);
     intersection.distance = t;
     intersection.position = t * dir + position;
@@ -133,13 +196,13 @@ objectIntersection castRayWithReflections(float4 position, float4 dir) {
     if(reflection.wasHit && reflection.distance < MAX_REFL_DIST) {
         float4 reflected2 = (float4)(reflect(reflected.xyz, reflection.normal.xyz), 0);
         objectIntersection reflection2 = castRay(reflection.position + reflected2, reflected2); // reflection
-        reflection2.wasHit = false; // Disable this line to enable reflections in reflections
+        // reflection2.wasHit = false; // Disable this line to enable reflections in reflections
         if(reflection2.wasHit && reflection2.distance < MAX_REFL_REFL_DIST) {
-            float amountOfReflCol = 1.0f - reflection.distance / MAX_REFL_DIST;
-            float amountOfReflCol2 = 1.0f - reflection2.distance / MAX_REFL_DIST;
+            float amountOfReflCol = (1.0f - reflection.distance / MAX_REFL_DIST) * REFLECT_FACTOR;
+            float amountOfReflCol2 = (1.0f - reflection2.distance / MAX_REFL_DIST) * REFLECT_FACTOR * REFLECT_FACTOR;
             intersection.obj.color = (1.0f - amountOfReflCol - amountOfReflCol2) * intersection.obj.color + amountOfReflCol2 * reflection2.obj.color + amountOfReflCol * reflection.obj.color;
         } else {
-            float amountOfReflCol = 1.0f - reflection.distance / MAX_REFL_DIST;
+            float amountOfReflCol = (1.0f - reflection.distance / MAX_REFL_DIST) * REFLECT_FACTOR;
             intersection.obj.color = (1.0f - amountOfReflCol) * intersection.obj.color + amountOfReflCol * reflection.obj.color;
         }
     }
@@ -147,7 +210,7 @@ objectIntersection castRayWithReflections(float4 position, float4 dir) {
     return intersection;
 }
 
-#define ANTI_ALIAS_SAMPLES 3
+#define ANTI_ALIAS_SAMPLES 5
 
 kernel void getOutput(float4 cameraPos, float2 cameraAngle, float2 screenSize, global uchar4 *colorOut) {
 	size_t x = get_global_id(0); // The coordinates on screen... team.

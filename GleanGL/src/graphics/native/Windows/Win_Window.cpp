@@ -89,7 +89,7 @@ Glean::graphics::Window::Window(const char *title, int width, int height, int x,
 
 bool Glean::graphics::Window::fetchEvents() {
 	MSG msg;
-	if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE | PM_NOYIELD)) {
+	while (PeekMessage(&msg, 0, 0, 0, PM_REMOVE | PM_NOYIELD)) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 
@@ -99,6 +99,9 @@ bool Glean::graphics::Window::fetchEvents() {
         if(msg.message == WM_KEYUP) keysPressed[Glean::events::SCANCODE_TO_KEY[msg.wParam] % IMPLEMENTED_KEYS] = false;
 
         Glean::events::Event *e = Glean::events::translateEvent(msg);
+
+		if (msg.message == WM_KEYDOWN || msg.message == WM_KEYUP) keysPressed[Glean::events::kSHIFT] = e->asKeyEvent()->isShiftDown;
+
         if (e) dispatchEvent(e);
 	}
 

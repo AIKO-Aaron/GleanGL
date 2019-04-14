@@ -89,7 +89,7 @@ void render(Glean::graphics::Renderer *renderer) {
 }
 
 int main(int argc, char **args) {    
-	window = new Window("Hello World", 960, 540);
+	window = new Window("Hello World", 960 * 2, 540 * 2);
     window->captureMouse();
     window->addEventHandler(handleEvent);
     window->addRenderFunction(render);

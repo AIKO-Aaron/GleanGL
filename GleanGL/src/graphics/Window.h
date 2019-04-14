@@ -29,7 +29,7 @@ namespace Glean {
             std::vector<renderFunc> renderFunctions;
             std::vector<eventDispatchFunc> eventHandlers;
 
-			Renderer* renderer;
+			Renderer* renderer = nullptr;
 		public:
 			Window(const char *title, int width, int height);
 			Window(const char *title, int width, int height, int x, int y);
