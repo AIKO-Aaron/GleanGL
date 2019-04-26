@@ -139,11 +139,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\RayCast.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\opencl\objects.cl" />
+    <None Include="assets\opencl\raycast_out.cl" />
     <None Include="assets\opencl\test.cl">
       <FileType>CppCode</FileType>
     </None>
+    <None Include="assets\opencl\trigo.cl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\RayCast.h" />
+    <ClInclude Include="src\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

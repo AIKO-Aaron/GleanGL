@@ -18,8 +18,25 @@
     <ClCompile Include="src\Main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\RayCast.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\opencl\test.cl" />
+    <None Include="assets\opencl\raycast_out.cl" />
+    <None Include="assets\opencl\objects.cl" />
+    <None Include="assets\opencl\trigo.cl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\RayCast.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

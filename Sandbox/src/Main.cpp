@@ -7,6 +7,10 @@
 #include "math/GleanMath.h"
 #include "graphics/Camera.h"
 #include "graphics/native/Universal/OpenCL/GleanCL.h"
+#include "graphics/native/Universal/OpenCL/KernelLoader.h"
+
+#include "RayCast.h"
+#include "Scene.h"
 
 using namespace Glean::graphics;
 
@@ -21,6 +25,8 @@ static Glean::math::Vector<4> cpos = Glean::math::createVector(0, 0, 1, 1);
 static Glean::math::Vector<2> cangles = Glean::math::createVector(PI, 0);
 static GLuint texID;
 static GLuint *vertexBuffers = new GLuint[2];
+
+static SandBox::RayCaster rayCaster(SandBox::createScene());
 
 void handleEvent(Glean::events::Event *e) {
     if(e->type == Glean::events::KEYDOWN) {
@@ -40,12 +46,17 @@ void handleEvent(Glean::events::Event *e) {
 	}
 }
 
+
 void render(Glean::graphics::Renderer *renderer) {
     renderer->clearColor(0, 0, 0, 1);
     
-    unsigned char *img = testRay(cpos, cangles);
+    //unsigned char *img = testRay(cpos, cangles);
     //cangles[1] += PI / 1000.0f;
     //cangles[0] -= PI / 1000.0f;
+
+	rayCaster.setPosition(cpos);
+	rayCaster.setRotation(cangles);
+	rayCaster.render();
     
     float dx = 0;
     float dy = 0;
@@ -63,7 +74,7 @@ void render(Glean::graphics::Renderer *renderer) {
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 960, 540, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, img);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 960 * PIXEL_ACCURACY, 540 * PIXEL_ACCURACY, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, rayCaster.img);
 
     shader->bind();
     shader->uniformi("tex", 0);
@@ -90,7 +101,7 @@ void render(Glean::graphics::Renderer *renderer) {
 
 int main(int argc, char **args) {    
 	window = new Window("Hello World", 960 * 2, 540 * 2);
-    window->captureMouse();
+    //window->captureMouse();
     window->addEventHandler(handleEvent);
     window->addRenderFunction(render);
     
@@ -110,10 +121,9 @@ int main(int argc, char **args) {
     }, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertexBuffers[1]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * 6, new unsigned int[6] {0, 1, 2, 2, 3, 0}, GL_STATIC_DRAW);
-
-    // testCL();
     
-	initCL();
+	glEnable(GL_MULTISAMPLE);
+
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

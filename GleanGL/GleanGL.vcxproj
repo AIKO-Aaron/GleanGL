@@ -132,6 +132,7 @@
     <ClInclude Include="src\graphics\lighting\Light.h" />
     <ClInclude Include="src\graphics\lighting\Material.h" />
     <ClInclude Include="src\graphics\native\Universal\OpenCL\GleanCL.h" />
+    <ClInclude Include="src\graphics\native\Universal\OpenCL\KernelLoader.h" />
     <ClInclude Include="src\graphics\native\Universal\OpenGL\glcorearb.h" />
     <ClInclude Include="src\graphics\native\Universal\OpenGL\GleanGL.h" />
     <ClInclude Include="src\graphics\native\Universal\OpenGL\glext.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="src\graphics\lighting\Light.cpp" />
     <ClCompile Include="src\graphics\lighting\Material.cpp" />
     <ClCompile Include="src\graphics\native\Universal\OpenCL\GleanCL.cpp" />
+    <ClCompile Include="src\graphics\native\Universal\OpenCL\KernelLoader.cpp" />
     <ClCompile Include="src\graphics\native\Universal\OpenGL\GleanGL.cpp" />
     <ClCompile Include="src\graphics\native\Universal\RendererOpenGL.cpp" />
     <ClCompile Include="src\graphics\native\Windows\Win_Library.cpp" />

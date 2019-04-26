@@ -90,6 +90,9 @@
     <ClInclude Include="src\math\Vector.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\native\Universal\OpenCL\KernelLoader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\Window.cpp">
@@ -135,6 +138,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\lighting\Material.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\native\Universal\OpenCL\KernelLoader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
