@@ -48,20 +48,12 @@ namespace Glean {
 					if (buildError != CL_SUCCESS) printf("Error getting kernel function: %d\n", buildError);
 				}
 
-				inline void operator()(T... args) {
-					setArgs<0, T...>(args...);
-
-					cl_event evt;
-					clEnqueueNDRangeKernel(queue, kernelFunction, num_dimensions, NULL, dimensions, NULL, NULL, NULL, &evt);
-					clWaitForEvents(1, &evt);
-				}
-
-				template<int index, typename A, typename...T>
-				inline void setArgs(A a, T... args) {
+				template<int index, typename A, typename...S>
+				inline void setArgs(A a, S... args) {
 					cl_int err = clSetKernelArg(kernelFunction, index, sizeof(a), &a);
 					if (err != CL_SUCCESS) printf("[GLEAN][ERROR] OpenCL encountered the error %d during clSetKernelArg\n", err);
 
-					setArgs<index + 1, T...>(args...);
+					setArgs<index + 1, S...>(args...);
 				}
 
 				template<int index, typename A>
@@ -69,6 +61,14 @@ namespace Glean {
 					cl_int err = clSetKernelArg(kernelFunction, index, sizeof(a), &a);
 					if (err != CL_SUCCESS) printf("[GLEAN][ERROR] OpenCL encountered the error %d during clSetKernelArg\n", err);
 				}
+            
+                inline void operator()(T... args) {
+                    setArgs<0, T...>(args...);
+                
+                    cl_event evt;
+                    clEnqueueNDRangeKernel(queue, kernelFunction, num_dimensions, NULL, dimensions, NULL, NULL, NULL, &evt);
+                    clWaitForEvents(1, &evt);
+                }
 
 				inline cl_command_queue getQueue() { return queue; }
         };

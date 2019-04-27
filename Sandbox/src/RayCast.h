@@ -13,6 +13,8 @@ namespace SandBox {
 	private:
 		Glean::OpenCL::KernelFunction<cl_float4, cl_float2, cl_float2, cl_mem, cl_int, cl_mem> cameraOut_color;
 
+        Glean::OpenCL::KernelFunction<cl_float4, cl_float2, cl_mem> mandelbrot;
+        
 		SandBox::scene scene;
 
 		// Out stuff --> color

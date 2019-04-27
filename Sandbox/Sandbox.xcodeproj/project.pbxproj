@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93335ED122733734007F2FFF /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93335ECD22733734007F2FFF /* Scene.cpp */; };
+		93335ED222733734007F2FFF /* RayCast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93335ECE22733734007F2FFF /* RayCast.cpp */; };
 		93A0B6722252A35D004B05EF /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B6712252A35C004B05EF /* Main.cpp */; };
 		93A0B6752252A35F004B05EF /* libGleanGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A0B6742252A35F004B05EF /* libGleanGL.a */; };
 		93A0B6772252A369004B05EF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A0B6762252A368004B05EF /* OpenGL.framework */; };
@@ -29,6 +31,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		93335ECD22733734007F2FFF /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		93335ECE22733734007F2FFF /* RayCast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RayCast.cpp; sourceTree = "<group>"; };
+		93335ECF22733734007F2FFF /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		93335ED022733734007F2FFF /* RayCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RayCast.h; sourceTree = "<group>"; };
 		93A0B6662252A344004B05EF /* Sandbox */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sandbox; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A0B6712252A35C004B05EF /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 		93A0B6742252A35F004B05EF /* libGleanGL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGleanGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +80,10 @@
 		93A0B6702252A35C004B05EF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				93335ECE22733734007F2FFF /* RayCast.cpp */,
+				93335ED022733734007F2FFF /* RayCast.h */,
+				93335ECD22733734007F2FFF /* Scene.cpp */,
+				93335ECF22733734007F2FFF /* Scene.h */,
 				93A0B6712252A35C004B05EF /* Main.cpp */,
 			);
 			path = src;
@@ -146,7 +156,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93335ED122733734007F2FFF /* Scene.cpp in Sources */,
 				93A0B6722252A35D004B05EF /* Main.cpp in Sources */,
+				93335ED222733734007F2FFF /* RayCast.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

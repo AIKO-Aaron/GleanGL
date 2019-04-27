@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93335ECB22733717007F2FFF /* KernelLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 93335EC922733716007F2FFF /* KernelLoader.h */; };
+		93335ECC22733717007F2FFF /* KernelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93335ECA22733717007F2FFF /* KernelLoader.cpp */; };
 		93A0B6502252A2E8004B05EF /* RendererOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0B6402252A2E8004B05EF /* RendererOpenGL.cpp */; };
 		93A0B6512252A2E8004B05EF /* Platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 93A0B6412252A2E8004B05EF /* Platform.h */; };
 		93A0B6522252A2E8004B05EF /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 93A0B6432252A2E8004B05EF /* glext.h */; };
@@ -46,6 +48,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		93335EC922733716007F2FFF /* KernelLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KernelLoader.h; sourceTree = "<group>"; };
+		93335ECA22733717007F2FFF /* KernelLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KernelLoader.cpp; sourceTree = "<group>"; };
 		93A0B6352252A2CF004B05EF /* libGleanGL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGleanGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A0B6402252A2E8004B05EF /* RendererOpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RendererOpenGL.cpp; sourceTree = "<group>"; };
 		93A0B6412252A2E8004B05EF /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
@@ -205,6 +209,8 @@
 		93E5F647225DCC4C00964B1E /* OpenCL */ = {
 			isa = PBXGroup;
 			children = (
+				93335ECA22733717007F2FFF /* KernelLoader.cpp */,
+				93335EC922733716007F2FFF /* KernelLoader.h */,
 				93E5F648225DCC5800964B1E /* GleanCL.cpp */,
 				93E5F649225DCC5800964B1E /* GleanCL.h */,
 			);
@@ -260,6 +266,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93335ECB22733717007F2FFF /* KernelLoader.h in Headers */,
 				93F3611122548978004C3282 /* Shader.h in Headers */,
 				93F311FD225CD3370067F76C /* Material.h in Headers */,
 				93F3612B22560DBD004C3282 /* Camera.h in Headers */,
@@ -341,6 +348,7 @@
 				93A0B65A2252A2E8004B05EF /* Win_Window.cpp in Sources */,
 				93A0B65C2252A2E8004B05EF /* Win_Library.cpp in Sources */,
 				93F311F7225CA51C0067F76C /* Sphere.cpp in Sources */,
+				93335ECC22733717007F2FFF /* KernelLoader.cpp in Sources */,
 				93F3612A22560DBD004C3282 /* Camera.cpp in Sources */,
 				93A0B6562252A2E8004B05EF /* Window.cpp in Sources */,
 				93E5F64A225DCC5800964B1E /* GleanCL.cpp in Sources */,
