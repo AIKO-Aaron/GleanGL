@@ -34,6 +34,7 @@ void handleEvent(Glean::events::Event *e) {
 		if (kEvent->isPlatformCtrlDown() && kEvent->key == Glean::events::kQ) exit(0);
         //printf("[SANDBOX][DEBUG] Pressed Key: %c\n", Glean::events::getCharFromKey(kEvent->key));
         // if(kEvent->key == Glean::events::kW) c.move(Glean::math::createVector(0, 0, 0.01));
+		if (kEvent->key == Glean::events::kSPACE) window->uncaptureMouse();
 	}
 	else if (e->type == Glean::events::MOUSEMOTION) {
 		Glean::events::MouseMotionEvent *mEvent = e->asMouseMotionEvent();

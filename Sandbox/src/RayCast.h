@@ -4,14 +4,14 @@
 #define SCREEN_WIDTH 960
 #define SCREEN_HEIGHT 540
 
-#define PIXEL_ACCURACY 2 // Like resolution
+#define PIXEL_ACCURACY 1 // Like resolution
 #define LIGHT_ACCURACY 1 // Affects how many rays for each light
 
 namespace SandBox {
     
 	class RayCaster {
 	private:
-		Glean::OpenCL::KernelFunction<cl_float4, cl_float2, cl_float2, cl_mem, cl_int, cl_mem> cameraOut_color;
+		Glean::OpenCL::KernelFunction<cl_float4, cl_float2, cl_float2, cl_mem, cl_int, cl_mem, cl_int, cl_mem> cameraOut_color;
 
         Glean::OpenCL::KernelFunction<cl_float4, cl_float2, cl_mem> mandelbrot;
         
@@ -22,7 +22,7 @@ namespace SandBox {
 		cl_float2 cameraAngle = { 0, 0 };
 		cl_float2 screenSize = { SCREEN_WIDTH * PIXEL_ACCURACY, SCREEN_HEIGHT * PIXEL_ACCURACY };
 		cl_mem buffer = clCreateBuffer(Glean::OpenCL::context, CL_MEM_READ_WRITE, (size_t)(screenSize.x * screenSize.y) * sizeof(cl_uchar4), NULL, NULL);
-		cl_mem sceneBuffer;
+		cl_mem sceneBuffer, lightsBuffer;
 
 	public:
 		unsigned char* img = new unsigned char[SCREEN_WIDTH * SCREEN_HEIGHT * 4 * PIXEL_ACCURACY * PIXEL_ACCURACY];

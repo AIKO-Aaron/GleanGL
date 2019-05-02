@@ -46,14 +46,15 @@ FileData Glean::util::readWithProcessing(const char *filePath, int depth) {
     
     printf("[GLEAN][INFO] Loading File: %s\n", filePath);
     
-    int s = 0;
+    int s = -1;
     while(s < fd.length) {
-        if(fd.data[s++] == '\n') { // newline char
+        if(s == -1 || fd.data[s++] == '\n') { // newline char
+			if (s < 0) ++s;
             while(fd.data[s] == ' ' || fd.data[s] == '\t') ++s;
             if(fd.data[s] == '#') { // We're in a preprocessor statement
                 int len = 0; // Length of directive
                 int start = s; // Start at current offset in file
-                while(fd.data[s++] != '\n') ++len; // Search for next newline
+                while(fd.data[s++] != '\n' && s < fd.length) ++len; // Search for next newline
                 //len--;
                 //s--;
                 
@@ -77,9 +78,9 @@ FileData Glean::util::readWithProcessing(const char *filePath, int depth) {
                     // data + start until j+1
                     uint64_t newsize = fd.length - s + start + loadedFile.length;
                     char *newFile = (char*) malloc((size_t) newsize + 1);
-                    memcpy(newFile, fd.data, start);
-                    memcpy(newFile + start, loadedFile.data, (size_t) loadedFile.length);
-                    memcpy(newFile + start + loadedFile.length, fd.data + start + j + 1, (size_t) fd.length - s);
+                    memcpy(newFile, fd.data, start); // Copy start of current file
+                    memcpy(newFile + start, loadedFile.data, (size_t) loadedFile.length); // Copy the new loaded file to the place it should go
+                    memcpy(newFile + start + loadedFile.length, fd.data + s, (size_t) fd.length - s + 1); // Copy the rest of our file
                     newFile[newsize] = 0;
                     
                     free(loadedFile.data); // Free newly loaded file

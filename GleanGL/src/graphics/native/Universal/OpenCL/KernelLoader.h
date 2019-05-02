@@ -28,6 +28,9 @@ namespace Glean {
 					dimensions = dim;
 
 					Glean::util::FileData d = Glean::util::readWithProcessing(filePath);
+					
+					printf("%s", d.data);
+
 					program = clCreateProgramWithSource(context, 1, (const char**)& d.data, NULL, NULL);
 					cl_int buildError = clBuildProgram(program, 1, &defaultDevice, "", NULL, NULL);
 
@@ -45,7 +48,7 @@ namespace Glean {
 					queue = clCreateCommandQueue(context, defaultDevice, 0, NULL);
 
 					kernelFunction = clCreateKernel(program, funcName, &buildError);
-					if (buildError != CL_SUCCESS) printf("Error getting kernel function: %d\n", buildError);
+					if (buildError != CL_SUCCESS) printf("[GLEAN][ERROR] Error getting kernel function: %d\n", buildError);
 				}
 
 				template<int index, typename A, typename...S>

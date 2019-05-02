@@ -1,8 +1,8 @@
 typedef enum {
     SPHERE = 0,
-    PLANE,
-	CUBE,
-	LIGHT_SPHERE
+    PLANE = 1,
+	CUBE = 2,
+	LIGHT_SPHERE = 3
 } objectType;
 
 typedef struct __attribute__ ((packed)) {

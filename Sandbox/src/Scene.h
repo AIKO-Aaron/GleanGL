@@ -21,10 +21,19 @@ namespace SandBox {
 	} scene_object;
 #pragma pack(pop)
 
+#pragma pack(push, 1)
 	typedef struct {
+		cl_float4 position;
+		cl_float4 color;
+	} scene_light;
+#pragma pack(pop)
+
+	typedef struct scene {
 		scene_object* sceneObjects;
 		int numObjects;
-	} scene;
+		scene_light* lights;
+		int numLights;
+	};
 
 	extern scene createScene();
 }

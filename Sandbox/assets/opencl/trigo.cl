@@ -1,5 +1,7 @@
 #include "assets/opencl/definitions.cl"
 
+#define IN_RANGE(a) ((a)>0?(min(a, MAX_DIST)):MAX_DIST)
+
 float calculateIntersectionWithSphere(float3 m, float r, float4 p, float4 v) {
     float3 dist = p.xyz - m;
     
@@ -10,11 +12,9 @@ float calculateIntersectionWithSphere(float3 m, float r, float4 p, float4 v) {
     float diskriminante = b * b - 4.0 * a * c;
     if(diskriminante < 0) return MAX_DIST; // Not hit... Ray will never hit this sphere
     
-    float t1 = (-b + sqrt(diskriminante)) / (2.0f * a);
-    float t2 = (-b - sqrt(diskriminante)) / (2.0f * a);
-
-    if(t1 < 0 && t2 < 0) return MAX_DIST; // Behind us... ignore
-
+    float t1 = IN_RANGE(-b + sqrt(diskriminante)) / (2.0f * a);
+    float t2 = IN_RANGE(-b - sqrt(diskriminante)) / (2.0f * a);
+	
     return min(t1, t2); //(float4)(0, 0, 0, 0);
 }
 
@@ -25,9 +25,6 @@ float calculateIntersectionWithPlane(float3 normal, float3 pointOnPlane, float4 
     if(t < 0) return MAX_DIST;
     return min(t, MAX_DIST);
 }
-
-
-#define IN_RANGE(a) ((a)>0?(min(a, MAX_DIST)):MAX_DIST)
 
 #define HITS(p, cp, cs) ((p).x >= (cp).x && (p).x <= (cp).x + (cs).x && (p).y >= (cp).y && (p).y <= (cp).y + (cs).y && (p).z >= (cp).z && (p).z <= (cp).z + (cs).z)
 
