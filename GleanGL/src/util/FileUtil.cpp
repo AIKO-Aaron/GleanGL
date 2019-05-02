@@ -87,7 +87,7 @@ FileData Glean::util::readWithProcessing(const char *filePath, int depth) {
                     free(filename); // Free the filename string
                     free(fd.data); // Free the datas of the file, as we have a new one
                     fd.data = newFile; // Set the pointer in fd to the new one
-                    fd.length = newsize; // Update the size
+                    fd.length = (long) newsize; // Update the size
                     
                     s = start - 1; // Go back to the start of the line
                 }

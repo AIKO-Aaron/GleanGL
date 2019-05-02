@@ -19,15 +19,15 @@ SandBox::RayCaster::RayCaster(SandBox::scene s) {
 cl_float4 bounds = { -2, -2, 2, 2 };
 
 void SandBox::RayCaster::render() {
-	cameraOut_color(cameraPos, cameraAngle, screenSize, buffer, scene.numObjects, sceneBuffer);
+	cameraOut_color(cameraPos, cameraAngle, screenSize, buffer, scene.numObjects, sceneBuffer, scene.numLights, lightsBuffer);
 	clEnqueueReadBuffer(cameraOut_color.getQueue(), buffer, CL_TRUE, 0, sizeof(cl_uchar4) * (size_t)(SCREEN_WIDTH * SCREEN_HEIGHT * PIXEL_ACCURACY * PIXEL_ACCURACY), img, NULL, NULL, NULL);
-     */
-    
+
+	/*
     bounds.x += 0.003f * fmin(1.0, abs(bounds.z - bounds.x));
     bounds.y += 0.003f * fmin(1.0, abs(bounds.w - bounds.y));
     bounds.z -= 0.002f * fmin(1.0, abs(bounds.z - bounds.x));
     bounds.w -= 0.0021f * fmin(1.0, abs(bounds.w - bounds.y));
     
     mandelbrot(bounds, screenSize, buffer);
-    clEnqueueReadBuffer(mandelbrot.getQueue(), buffer, CL_TRUE, 0, sizeof(cl_uchar4) * (size_t)(SCREEN_WIDTH * SCREEN_HEIGHT * PIXEL_ACCURACY * PIXEL_ACCURACY), img, NULL, NULL, NULL);
+    clEnqueueReadBuffer(mandelbrot.getQueue(), buffer, CL_TRUE, 0, sizeof(cl_uchar4) * (size_t)(SCREEN_WIDTH * SCREEN_HEIGHT * PIXEL_ACCURACY * PIXEL_ACCURACY), img, NULL, NULL, NULL);*/
 }

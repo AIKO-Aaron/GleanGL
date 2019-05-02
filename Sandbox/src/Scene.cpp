@@ -14,7 +14,7 @@ SandBox::scene SandBox::createScene() {
 	scene[2].type = PLANE;
 	scene[2].position = { 0, 2, 0, 0 }; // Point on plane
 	scene[2].meta1 = { 0, 1, 0, 0 }; // Normal to plane
-	scene[2].color = { 0.8, 0.5, 0.5, 0 };
+	scene[2].color = { 0.8f, 0.5f, 0.5f, 0 };
 
 	scene[3].type = CUBE;
 	scene[3].position = { 1, -3, 3 };
