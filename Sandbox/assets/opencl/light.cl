@@ -1,5 +1,7 @@
 #include "assets/opencl/raycast.cl"
 
+#define AMBIENT_LIGHT 0.01f
+
 typedef struct __attribute__ ((packed)) {
     float4 position; // x, y, z; if w == 0 then dir else pos
     float4 color;
@@ -20,21 +22,23 @@ float calculateBrightness(float4 position, float4 normal, int objectsInScene, gl
         dir = normalize(dir);
 
         objectIntersection lightBlocker = castRay_scene(position + 0.01f * dir, dir, objectsInScene, scene);
-        if(lightBlocker.wasHit) {
+        if(lightBlocker.obj.type != LIGHT_SPHERE) {
             // No light
-            brightness += 0.1f; // ambient light
+            brightness += AMBIENT_LIGHT; // ambient light
         } else {
-            brightness += max(0, dot(dir, normalize(normal))) * 0.9f + 0.1f;
+            brightness += max(0, dot(dir, normalize(normal))) * (1.0f-AMBIENT_LIGHT) + AMBIENT_LIGHT;
         }
     }
 
-    return brightness;
+    return min(brightness, 1);
 }
 
 
 objectIntersection castRayWithLight(float4 position, float4 dir, int numReflections, int objectsInScene, global object *scene, int lightsInScene, global light *lights) {
     objectIntersection intersection = castRay_scene(position, dir, objectsInScene, scene); // normal ray
 
+	if(!intersection.wasHit || intersection.obj.type == LIGHT_SPHERE) return intersection; // Don't do anything if we didn't hit anything or we hit a light sphere (No reflections on light spheres)
+	
     float b = calculateBrightness(intersection.position, intersection.normal, objectsInScene, scene, lightsInScene, lights);
     intersection.obj.color *= b;
 
@@ -47,7 +51,7 @@ objectIntersection castRayWithLight(float4 position, float4 dir, int numReflecti
 		float4 reflectedRay = (float4)(reflect(lastDir.xyz, lastNormal.xyz), 0);
 		objectIntersection reflection = castRay_scene(lastPos + reflectedRay, reflectedRay, objectsInScene, scene); // reflection
 
-		if(reflection.distance >= MAX_REFL_DIST) break;
+		if(reflection.distance >= MAX_REFL_DIST || !reflection.wasHit || reflection.obj.type == LIGHT_SPHERE) break;
 
 		float amountOfNewCol = factor * (1.0f - reflection.distance / MAX_REFL_DIST);
 

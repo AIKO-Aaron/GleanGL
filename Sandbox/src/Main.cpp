@@ -34,7 +34,6 @@ void handleEvent(Glean::events::Event *e) {
 		if (kEvent->isPlatformCtrlDown() && kEvent->key == Glean::events::kQ) exit(0);
         //printf("[SANDBOX][DEBUG] Pressed Key: %c\n", Glean::events::getCharFromKey(kEvent->key));
         // if(kEvent->key == Glean::events::kW) c.move(Glean::math::createVector(0, 0, 0.01));
-		if (kEvent->key == Glean::events::kSPACE) window->uncaptureMouse();
 	}
 	else if (e->type == Glean::events::MOUSEMOTION) {
 		Glean::events::MouseMotionEvent *mEvent = e->asMouseMotionEvent();
@@ -102,9 +101,10 @@ void render(Glean::graphics::Renderer *renderer) {
 
 int main(int argc, char **args) {    
 	window = new Window("Hello World", 960, 540);
-    //window->captureMouse();
+    window->captureMouse();
     window->addEventHandler(handleEvent);
     window->addRenderFunction(render);
+	window->makeFullscreen();
     
     //mesh = generateSphere(Glean::math::createVector(0, 0, 3), 1, 100); //new Glean::graphics::Mesh(verticies);
 	mesh = generateSphere(Glean::math::createVector(0, 0, -3), 1, 100); //new Glean::graphics::Mesh(verticies);

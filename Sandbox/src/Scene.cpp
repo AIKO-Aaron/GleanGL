@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 SandBox::scene SandBox::createScene() {
-	SandBox::scene_object* scene = new SandBox::scene_object[5];
+	SandBox::scene_object* scene = new SandBox::scene_object[6];
 
 	scene[0].type = SPHERE;
 	scene[0].position = {1, -2, 1, 1};
@@ -23,9 +23,15 @@ SandBox::scene SandBox::createScene() {
 
 	scene[4].type = LIGHT_SPHERE;
 	scene[4].position = { 1, -10, 1, 0.5f };
+	scene[4].color = {1, 1, 1, 1};
 
-	SandBox::scene_light* lights = new SandBox::scene_light[1];
+	scene[5].type = LIGHT_SPHERE;
+	scene[5].position = { 1, 0, 1, 0.5f };
+	scene[5].color = {1, 1, 1, 1};
+	
+	SandBox::scene_light* lights = new SandBox::scene_light[2];
 	lights[0].position = { 1, -10, 1, 1 };
+	lights[1].position = { 1, 0, 1, 1 };
 
-	return { scene, 5, lights, 1 };
+	return { scene, 6, lights, 2 };
 }

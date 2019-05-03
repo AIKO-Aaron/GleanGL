@@ -66,7 +66,7 @@ Glean::graphics::Window::Window(const char *title, int width, int height) {
     NSScreen *mainScreen = [NSScreen mainScreen];
     
     NSRect windowRect = NSMakeRect((mainScreen.frame.size.width - width) / 2.0, (mainScreen.frame.size.height - height) / 2.0, (double) width, (double) height);
-    NSWindow *w = [[__AWindow alloc] initWithContentRect:windowRect styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable backing:NSBackingStoreBuffered defer: NO screen:mainScreen];
+    NSWindow *w = [[__AWindow alloc] initWithContentRect:windowRect styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable|NSWindowStyleMaskResizable backing:NSBackingStoreBuffered defer: NO screen:mainScreen];
     window = (__internalWindow) w;
     
     [w setTitle: [NSString stringWithUTF8String:title]];
@@ -74,12 +74,17 @@ Glean::graphics::Window::Window(const char *title, int width, int height) {
     [w setAcceptsMouseMovedEvents: YES];
     [w setOpaque: NO];
     [w makeKeyAndOrderFront: nil];
-    
+	
     NSPoint mouseLoc = [w mouseLocationOutsideOfEventStream];
     Glean::events::mouseX = mouseLoc.x;
     Glean::events::mouseY = mouseLoc.y;
     
     init();
+}
+
+void Glean::graphics::Window::makeFullscreen() {
+	[(NSWindow*) window toggleFullScreen: nil];
+	glViewport(0, 0, [(NSWindow*) window frame].size.width, [(NSWindow*) window frame].size.height);
 }
 
 bool Glean::graphics::Window::fetchEvents() {

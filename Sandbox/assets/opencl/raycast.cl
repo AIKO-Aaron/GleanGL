@@ -39,7 +39,7 @@ objectIntersection castRay_scene(float4 position, float4 dir, int objectsInScene
             if(d1 < mindist) {
                 mindist = d1;
                 intersection.obj = o;
-                intersection.wasHit = false;
+                intersection.wasHit = true;
                 intersection.normal = (float4)((d1 * dir + position - o.position).xyz, 0);
             }
         }
@@ -55,6 +55,8 @@ objectIntersection castRay_scene(float4 position, float4 dir, int objectsInScene
 objectIntersection castRayWithMultipleReflections(float4 position, float4 dir, int numReflections, int objectsInScene, global object *scene) {
     objectIntersection intersection = castRay_scene(position, dir, objectsInScene, scene); // normal ray
 
+	if(!intersection.wasHit || intersection.obj.type == LIGHT_SPHERE) return intersection; // Don't do anything if we didn't hit anything or we hit a light sphere (No reflections on light spheres)
+	
 	float4 lastNormal = intersection.normal;
 	float4 lastPos = intersection.position;
 	float4 lastDir = dir;
@@ -64,7 +66,7 @@ objectIntersection castRayWithMultipleReflections(float4 position, float4 dir, i
 		float4 reflectedRay = (float4)(reflect(lastDir.xyz, lastNormal.xyz), 0);
 		objectIntersection reflection = castRay_scene(lastPos + reflectedRay, reflectedRay, objectsInScene, scene); // reflection
 
-		if(reflection.distance >= MAX_REFL_DIST) break;
+		if(reflection.distance >= MAX_REFL_DIST || !reflection.wasHit || reflection.obj.type == LIGHT_SPHERE) break;
 
 		float amountOfNewCol = factor * (1.0f - reflection.distance / MAX_REFL_DIST);
 		intersection.obj.color = (1.0f - amountOfNewCol) * intersection.obj.color + amountOfNewCol * reflection.obj.color;

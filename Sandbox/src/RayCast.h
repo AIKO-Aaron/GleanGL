@@ -11,11 +11,12 @@ namespace SandBox {
     
 	class RayCaster {
 	private:
-		Glean::OpenCL::KernelFunction<cl_float4, cl_float2, cl_float2, cl_mem, cl_int, cl_mem, cl_int, cl_mem> cameraOut_color;
+		Glean::OpenCL::KernelFunction<cl_float4, cl_float2, cl_float2, cl_mem, cl_int, cl_mem, cl_int, cl_mem, cl_float> cameraOut_color;
 
         Glean::OpenCL::KernelFunction<cl_float4, cl_float2, cl_mem> mandelbrot;
         
 		SandBox::scene scene;
+		float curTime = 0.0f;
 
 		// Out stuff --> color
 		cl_float4 cameraPos = { 1, 2, 3, 4 };

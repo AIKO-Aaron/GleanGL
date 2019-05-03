@@ -48,8 +48,8 @@ FileData Glean::util::readWithProcessing(const char *filePath, int depth) {
     
     int s = -1;
     while(s < fd.length) {
-        if(s == -1 || fd.data[s++] == '\n') { // newline char
-			if (s < 0) ++s;
+        if(s <= -1 || (s >= 0 && fd.data[s++] == '\n')) { // newline char
+			while (s < 0) ++s;
             while(fd.data[s] == ' ' || fd.data[s] == '\t') ++s;
             if(fd.data[s] == '#') { // We're in a preprocessor statement
                 int len = 0; // Length of directive

@@ -39,7 +39,9 @@ namespace Glean {
             
             void captureMouse();
             void uncaptureMouse();
-            
+			
+			void makeFullscreen();
+			
             inline bool isKeyPressed(Glean::events::Key key) { return keysPressed[(int) key]; }
 
             inline void dispatchEvent(Glean::events::Event *e) { for(eventDispatchFunc f : eventHandlers) f(e); }

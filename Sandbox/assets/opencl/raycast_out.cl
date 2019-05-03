@@ -1,6 +1,6 @@
 #include "assets/opencl/light.cl"
 
-kernel void getColors(float4 cameraPos, float2 cameraAngle, float2 screenSize, global uchar4 *colorOut, int objectsInScene, global object *scene, int lightsInScene, global light *lights) {
+kernel void getColors(float4 cameraPos, float2 cameraAngle, float2 screenSize, global uchar4 *colorOut, int objectsInScene, global object *scene, int lightsInScene, global light *lights, float time) {
     size_t x = get_global_id(0); // The coordinates on screen... team.
 	size_t y = get_global_id(1);
 
@@ -13,9 +13,14 @@ kernel void getColors(float4 cameraPos, float2 cameraAngle, float2 screenSize, g
     float4 rotated = (float4)(cos(theta) * sin(phi),
                               sin(theta),
                               cos(theta) * cos(phi), 0);
+	
+	lights[1].position.x = 3.0f * cos(time);
+	lights[1].position.z = 1.0+sin(time);
+	scene[5].position.x = 3.0f * cos(time);
+	scene[5].position.z = 1.0+sin(time);
 
     //objectIntersection intersection = castRayWithMultipleReflections(cameraPos, rotated, 2, objectsInScene, scene);
-    objectIntersection intersection = castRayWithLight(cameraPos, rotated, 2, objectsInScene, scene, lightsInScene, lights);
+    objectIntersection intersection = castRayWithLight(cameraPos, rotated, 1, objectsInScene, scene, lightsInScene, lights);
 
     float r = intersection.obj.color.x;
     float g = intersection.obj.color.y;
