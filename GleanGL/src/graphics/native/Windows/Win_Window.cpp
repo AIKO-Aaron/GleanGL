@@ -105,7 +105,7 @@ bool Glean::graphics::Window::fetchEvents() {
         if (e) dispatchEvent(e);
 	}
 
-	if (mouseCaptured) { // What a pain
+	if (mouseCaptured && GetActiveWindow() == window) { // What a pain
 		RECT rect;
 		GetWindowRect(window, &rect);
 		POINT p;
@@ -123,6 +123,17 @@ bool Glean::graphics::Window::fetchEvents() {
 void Glean::graphics::Window::start() { loop(); }
 
 void Glean::graphics::Window::close() { DestroyWindow(window); }
+
+void Glean::graphics::Window::makeFullscreen() {
+	SetWindowLong(window, GWL_STYLE, WS_OVERLAPPEDWINDOW & ~(WS_CAPTION | WS_THICKFRAME));
+	SetWindowLong(window, GWL_EXSTYLE, WS_EX_OVERLAPPEDWINDOW & ~(WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE));
+	MONITORINFO monitor_info;
+	monitor_info.cbSize = sizeof(monitor_info);
+	GetMonitorInfo(MonitorFromWindow(window, MONITOR_DEFAULTTONEAREST), &monitor_info);
+	SetWindowPos(window, NULL, monitor_info.rcMonitor.left, monitor_info.rcMonitor.top, monitor_info.rcMonitor.right - monitor_info.rcMonitor.left, monitor_info.rcMonitor.bottom - monitor_info.rcMonitor.top, SWP_NOZORDER | SWP_FRAMECHANGED);
+	::SendMessage(window, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
+	glViewport(0, 0, monitor_info.rcMonitor.right - monitor_info.rcMonitor.left, monitor_info.rcMonitor.bottom - monitor_info.rcMonitor.top);
+}
 
 void Glean::graphics::Window::captureMouse() { 
 	RECT rect;
